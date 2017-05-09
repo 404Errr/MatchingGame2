@@ -1,19 +1,15 @@
 package data;
 
 import java.awt.Color;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 public interface Data {
 	int UPS = 30;
 	
-	int IMAGE_SIZE = 400, UI_PADDING = 20, UI_BUTTON_HEIGHT = 40;
+	int IMAGE_SIZE = 400;//, UI_PADDING = 20, UI_BUTTON_HEIGHT = 40;
 
 	Color COLOR_UI_BUTTON = new Color(50,50,255,255);
 	Color COLOR_UI_BUTTON_HOVERED = new Color(100,100,255,255);
@@ -40,7 +36,7 @@ public interface Data {
 		if (FOLDER.isDirectory()) {
 			for (File picture:FOLDER.listFiles(IMAGE_FILTER)) {
 				IMAGES.add(picture);
-				System.out.println("loaded "+picture.getName());
+//				System.out.println("loaded "+picture.getName());
 			}
 		}
 	}

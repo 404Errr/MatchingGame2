@@ -7,16 +7,18 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import data.Data;
+import game.Game;
 
 @SuppressWarnings("serial")
 public class Renderer extends JPanel implements Data {
 	private Graphics2D g;
-	float i = 0;
 	
 	@Override
 	public void paint(Graphics g0) {
 		g = (Graphics2D) g0;
 		super.paintComponent(g);
+		
+		if (Game.getCorrectItem()!=null) drawImage(Game.getCorrectItem().getImage());
 	}
 
 //	private void drawScore() {
@@ -50,6 +52,6 @@ public class Renderer extends JPanel implements Data {
 //	}
 //
 	private void drawImage(BufferedImage image) {
-			g.drawImage(image, UI_PADDING, UI_PADDING*3, IMAGE_SIZE*(image.getWidth()/image.getHeight()), IMAGE_SIZE, null);
+			g.drawImage(image, Window.getFrame().getWidth()/2-IMAGE_SIZE/2, 20, IMAGE_SIZE*(image.getWidth()/image.getHeight()), IMAGE_SIZE, null);
 	}
 }

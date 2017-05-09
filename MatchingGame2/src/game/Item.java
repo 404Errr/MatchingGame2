@@ -10,18 +10,18 @@ public class Item {
 	public Item(BufferedImage image, int group, String name) {
 		this.image = image;
 		this.group = group;
-		this.name = name;
+		this.name = name.substring(0, name.indexOf(".png"));
 	}
-	
-	BufferedImage getImage() {
+
+	public BufferedImage getImage() {
 		return image;
 	}
-	
-	int getGroup() {
+
+	public int getGroup() {
 		return group;
 	}
 	
-	String getName() {
+	public String getName() {
 		return name;
 	}
 

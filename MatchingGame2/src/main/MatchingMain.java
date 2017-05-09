@@ -10,6 +10,8 @@ public class MatchingMain {
 		Window.init();
 		Game.init();
 		
+		Game.refillChoices();
+		
 		Thread update = new Thread(Game.getUpdateLoop(), "Loop");
 		update.start();
 	}

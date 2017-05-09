@@ -6,7 +6,7 @@ import graphics.Window;
 public class UpdateLoop implements Runnable, Data {
 	@Override
 	public void run() {
-		System.out.println("UPS: "+UPS);
+//		System.out.println("UPS: "+UPS);
 		final long updateSpeed = 1000000000/UPS;
 		long startTime = 0, wait = 0;
 		while (true) {
@@ -30,7 +30,7 @@ public class UpdateLoop implements Runnable, Data {
 			
 		}
 		catch (Exception e) {
-			System.out.println("-UPDATE ERROR");
+			System.out.println("update error");
 			e.printStackTrace();
 		}
 	}
