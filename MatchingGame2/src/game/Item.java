@@ -24,5 +24,12 @@ public class Item {
 	String getName() {
 		return name;
 	}
+
+	@Override
+	public String toString() {
+		return "grade: " + group + ", name: " + name;
+	}
+	
+	
 	
 }

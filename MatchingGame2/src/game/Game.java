@@ -19,7 +19,7 @@ public class Game implements Data {
 		allItems = new ArrayList<>();
 		for (File image:IMAGES) {
 			try {
-				int tempGrade = (int) (Math.random()*4+9);
+				int tempGrade = (int) (Math.random()*4)+9;
 				allItems.add(new Item(ImageIO.read(image), tempGrade, image.getName()));
 			}
 			catch (IOException e) {
@@ -34,6 +34,7 @@ public class Game implements Data {
 		currentItemOptions.clear();
 		for (int i = 0;i<CHOICE_COUNT;i++) currentItemOptions.add(items.get((int) (Math.random()*items.size())));
 		correctItem = currentItemOptions.get((int) (Math.random()*currentItemOptions.size()));
+		for (int i = 0;i<currentItemOptions.size();i++) System.out.println(currentItemOptions.get(i));
 	}
 	
 	public static UpdateLoop getUpdateLoop() {
