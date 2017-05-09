@@ -1,23 +1,28 @@
 package game;
 
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.List;
 
 public class Item {
-	BufferedImage image;
-	List<String> details;
+	private BufferedImage image;
+	private int group;//grade level
+	private String name;
 	
-	public Item(BufferedImage image, String... details) {
+	public Item(BufferedImage image, int group, String name) {
 		this.image = image;
-		this.details = Arrays.asList(details);
+		this.group = group;
+		this.name = name;
 	}
 	
-	public BufferedImage getImage() {
+	BufferedImage getImage() {
 		return image;
 	}
 	
-	public List<String> getDetails() {
-		return details;
+	int getGroup() {
+		return group;
 	}
+	
+	String getName() {
+		return name;
+	}
+	
 }

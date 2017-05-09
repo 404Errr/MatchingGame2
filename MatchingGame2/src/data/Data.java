@@ -19,9 +19,9 @@ public interface Data {
 	Color COLOR_UI_BUTTON_HOVERED = new Color(100,100,255,255);
 
 	int CHOICE_COUNT = 6;
-	boolean SHOW_CORRECT = false, REPEATING_SETS = false;
+//	boolean SHOW_CORRECT = false, REPEATING_SETS = false;
 
-	int REWARD_CORRECT = 1, REWARD_INCORRECT = -1;
+//	int REWARD_CORRECT = 1, REWARD_INCORRECT = -1;
 
 	List<File> IMAGES = new ArrayList<>();
 	

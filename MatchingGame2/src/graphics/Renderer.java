@@ -17,10 +17,6 @@ public class Renderer extends JPanel implements Data {
 	public void paint(Graphics g0) {
 		g = (Graphics2D) g0;
 		super.paintComponent(g);
-//		drawImage(IMAGES.get((int) (i+=3f/UPS)%IMAGES.size()));
-//		drawCurrentImage();
-//		drawChoiceButtons();
-//		drawScore();
 	}
 
 //	private void drawScore() {
