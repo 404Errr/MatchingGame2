@@ -1,6 +1,7 @@
 package data;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -19,23 +20,30 @@ public interface Data {
 
 //	int REWARD_CORRECT = 1, REWARD_INCORRECT = -1;
 
-	List<File> IMAGES = new ArrayList<>();
+//	List<File> IMAGES = new ArrayList<>();
+	List<String> IMAGES = new ArrayList<>();
 	
 	File FOLDER = new File("src/pictures");
 	String[] EXTS = new String[] {".png", ".jpg"};
 
-	FilenameFilter IMAGE_FILTER = new FilenameFilter() {
+	
+	
+	static BufferedImage getImage(String fileName) {
+		return null;
+	}
+	
+	static void load() {//load
+		FilenameFilter imageFilter = new FilenameFilter() {
 		@Override
 		public boolean accept(File f, String name) {
-			for (String ext:EXTS) if (name.endsWith(ext)) return true;//check if 
+			for (String ext:EXTS) if (name.endsWith(ext)) return true;//check if file is a picture
 			return false;
 		}
 	};
-	
-	static void load() {
 		if (FOLDER.isDirectory()) {
-			for (File picture:FOLDER.listFiles(IMAGE_FILTER)) {
-				IMAGES.add(picture);
+			for (File picture:FOLDER.listFiles(imageFilter)) {
+				IMAGES.add(picture.getName());
+//				IMAGES.add(picture);
 //				System.out.println("loaded "+picture.getName());
 			}
 		}

@@ -18,7 +18,7 @@ public class Window extends JFrame {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout());
-		frame.setExtendedState(MAXIMIZED_BOTH);
+		frame.setExtendedState(MAXIMIZED_BOTH);//maximize window
 		frame.addKeyListener(input);
 		frame.addMouseMotionListener(input);
 		frame.addMouseListener(input);

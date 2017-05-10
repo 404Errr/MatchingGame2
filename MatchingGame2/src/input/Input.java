@@ -9,16 +9,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class Input implements KeyListener, MouseMotionListener, MouseListener, MouseWheelListener {
+	//unused class for now
 	@Override
-	public void keyPressed(KeyEvent e) {
-		
-	}
-
+	public void keyPressed(KeyEvent e) {}
 	@Override
-	public void keyReleased(KeyEvent e) {
-
-	}
-
+	public void keyReleased(KeyEvent e) {}
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	@Override

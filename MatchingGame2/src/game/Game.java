@@ -22,15 +22,16 @@ public class Game implements Data {
 		allItems = new ArrayList<>();
 		availableItems = new ArrayList<>();
 		currentItemOptions = new ArrayList<>();
-		for (File image:IMAGES) {
-			try {
+//		for (File image:IMAGES) {
+//			try {
+		for (String image:IMAGES) {
 				int tempGrade = (int) (Math.random()*4)+9;
-				allItems.add(new Item(ImageIO.read(image), tempGrade, image.getName()));
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+				allItems.add(new Item(image, tempGrade, image));
+//			}
+//			catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		groupFilter = new ArrayList<>();
 		
 //		groupFilter.add(9);

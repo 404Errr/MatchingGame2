@@ -10,12 +10,12 @@ public class Cursor {
 	private static int x, y;
 
 	public static void click(MouseEvent e, boolean down) {
-
+		//TODO
 	}
 
 	public static void updateMouse(MouseEvent e) {
 		e = SwingUtilities.convertMouseEvent(Window.getFrame(), e, Window.getRenderer());
-		x = e.getX();
+		x = e.getX();//set position
 		y = e.getY();
 	}
 
