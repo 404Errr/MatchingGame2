@@ -8,10 +8,13 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import game.Game;
+
 public class Input implements KeyListener, MouseMotionListener, MouseListener, MouseWheelListener {
-	//unused class for now
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode()==KeyEvent.VK_N) Game.refillChoices();//temporary
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {}
 	@Override

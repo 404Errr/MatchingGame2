@@ -5,26 +5,24 @@ import java.awt.image.BufferedImage;
 import data.Data;
 
 public class Item {
-//	private BufferedImage image;//picture
-	private String imageDir;//file directory/name
-	private int grade;//grade level
+	private String imageName;//file name
+	private int grade;//graduation year/grade
 	private String name;//name
-	
-	public Item(/*BufferedImage image, */String image, int group, String name) {
-		this.imageDir = image;
-		this.grade = group;
+
+	public Item(String imageName, int grade, String name) {
+		this.imageName = imageName;
+		this.grade = grade;
 		this.name = name.substring(0, name.indexOf(".png"));//temporary
 	}
 
 	public BufferedImage getImage() {
-//		return image;
-		return Data.getImage(imageDir);
+		return Data.getImage(imageName);
 	}
 
 	public int getGrade() {
 		return grade;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -33,7 +31,7 @@ public class Item {
 	public String toString() {
 		return "grade: " + grade + ", name: " + name;
 	}
-	
-	
-	
+
+
+
 }
