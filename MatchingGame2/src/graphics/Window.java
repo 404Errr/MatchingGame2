@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import input.Input;
 
+@SuppressWarnings("serial")
 public class Window extends JFrame {
 	private static JFrame frame;
 	private static Input input;

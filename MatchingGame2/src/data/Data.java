@@ -22,12 +22,12 @@ public interface Data {
 	List<File> IMAGES = new ArrayList<>();
 	
 	File FOLDER = new File("src/pictures");
-	String[] EXTS = new String[] {".png", ".jpg", ".bmp"};
+	String[] EXTS = new String[] {".png", ".jpg"};
 
 	FilenameFilter IMAGE_FILTER = new FilenameFilter() {
 		@Override
 		public boolean accept(File f, String name) {
-			for (String ext:EXTS) if (name.endsWith(ext)) return true;
+			for (String ext:EXTS) if (name.endsWith(ext)) return true;//check if 
 			return false;
 		}
 	};

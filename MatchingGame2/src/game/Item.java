@@ -4,21 +4,21 @@ import java.awt.image.BufferedImage;
 
 public class Item {
 	private BufferedImage image;
-	private int group;//grade level
+	private int grade;//grade level
 	private String name;
 	
 	public Item(BufferedImage image, int group, String name) {
 		this.image = image;
-		this.group = group;
-		this.name = name.substring(0, name.indexOf(".png"));
+		this.grade = group;
+		this.name = name.substring(0, name.indexOf(".png"));//temporary
 	}
 
 	public BufferedImage getImage() {
 		return image;
 	}
 
-	public int getGroup() {
-		return group;
+	public int getGrade() {
+		return grade;
 	}
 	
 	public String getName() {
@@ -27,7 +27,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "grade: " + group + ", name: " + name;
+		return "grade: " + grade + ", name: " + name;
 	}
 	
 	

@@ -56,7 +56,7 @@ public class Game implements Data {
 	}
 	
 	private static boolean meetsFilter(Item item) {
-		if (!groupFilter.isEmpty()&&!groupFilter.contains(item.getGroup())) return false;
+		if (!groupFilter.isEmpty()&&!groupFilter.contains(item.getGrade())) return false;
 		return true;
 	}
 
