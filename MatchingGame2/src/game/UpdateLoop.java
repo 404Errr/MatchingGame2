@@ -2,6 +2,7 @@ package game;
 
 import data.Data;
 import graphics.Window;
+import main.MatchingMain;
 
 public class UpdateLoop implements Runnable, Data {
 	@Override
@@ -12,7 +13,8 @@ public class UpdateLoop implements Runnable, Data {
 		while (true) {
 			startTime = System.nanoTime();
 			update();
-			Window.getRenderer().repaint();
+//			Window.getRenderer().repaint();
+			MatchingMain.getWindow().repaint();
 			wait = (updateSpeed-(System.nanoTime()-startTime))/1000000;
 			try {
 				if (wait>0) Thread.sleep(wait);

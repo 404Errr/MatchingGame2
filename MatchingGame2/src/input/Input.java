@@ -13,7 +13,7 @@ import game.Game;
 public class Input implements KeyListener, MouseMotionListener, MouseListener, MouseWheelListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode()==KeyEvent.VK_N) Game.refillChoices();//temporary
+//		if (e.getKeyCode()==KeyEvent.VK_N) Game.refillChoices();//temporary
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {}

@@ -19,7 +19,7 @@ public class Game implements Data {
 		currentItemOptions = new ArrayList<>();
 		for (String image:IMAGE_PATHS) {
 			int tempGrade = (int) (Math.random()*4)+9;
-			allItems.add(new Item(image, tempGrade, image));
+			allItems.add(new Item(image, tempGrade));
 		}
 		gradeFilter = new ArrayList<>();
 		gradeFilter.add(9);

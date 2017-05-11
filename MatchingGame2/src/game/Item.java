@@ -5,18 +5,18 @@ import java.awt.image.BufferedImage;
 import data.Data;
 
 public class Item {
-	private String imageName;//file name
+	private String imagePath;//file name
 	private int grade;//graduation year/grade
 	private String name;//name
 
-	public Item(String imageName, int grade, String name) {
-		this.imageName = imageName;
+	public Item(String imagePath, int grade) {
+		this.imagePath = imagePath;
 		this.grade = grade;
-		this.name = name.substring(0, name.indexOf(".png"));//temporary
+		this.name = imagePath;//temporary
 	}
 
 	public BufferedImage getImage() {
-		return Data.getImage(imageName);
+		return Data.getImage(imagePath);
 	}
 
 	public int getGrade() {
