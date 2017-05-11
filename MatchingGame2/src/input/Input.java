@@ -8,8 +8,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import game.Game;
-
 public class Input implements KeyListener, MouseMotionListener, MouseListener, MouseWheelListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -28,11 +26,11 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener, M
 	@Override
 	public void mouseExited(MouseEvent e) {}
 	@Override
-	public void mouseMoved(MouseEvent e) {Cursor.updateMouse(e);}
+	public void mouseMoved(MouseEvent e) {/*Cursor.updateMouse(e);*/}
 	@Override
-	public void mousePressed(MouseEvent e) {Cursor.updateMouse(e);Cursor.click(e, true);}
+	public void mousePressed(MouseEvent e) {/*Cursor.updateMouse(e);Cursor.click(e, true);*/}
 	@Override
-	public void mouseReleased(MouseEvent e) {Cursor.updateMouse(e);Cursor.click(e, false);}
+	public void mouseReleased(MouseEvent e) {/*Cursor.updateMouse(e);Cursor.click(e, false);*/}
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {}
 }

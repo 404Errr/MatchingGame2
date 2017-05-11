@@ -22,7 +22,7 @@ public class Game implements Data {
 			allItems.add(new Item(image, tempGrade));
 		}
 		gradeFilter = new ArrayList<>();
-		gradeFilter.add(9);
+//		gradeFilter.add(9);
 		refillChoices();
 	}
 

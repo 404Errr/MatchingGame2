@@ -2,22 +2,20 @@ package main;
 
 import data.Data;
 import game.Game;
-import graphics.NewWindow;
 import graphics.Window;
 
 public class MatchingMain {
-	static NewWindow window;
+	static Window window;
 	
 	public static void main(String[] args) {
 		Data.load();
-//		Window.init();
 		Game.init();
-		window = new NewWindow();
-		window.start();
-		new Thread(Game.getUpdateLoop(), "Loop").start();
+//		window = new Window();
+//		window.start();
+//		Game.getUpdateLoop().run();
 	}
 
-	public static NewWindow getWindow() {
+	public static Window getWindow() {
 		return window;
 	}
 }

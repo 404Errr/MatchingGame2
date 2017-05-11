@@ -1,11 +1,9 @@
 package game;
 
 import data.Data;
-import graphics.Window;
 import main.MatchingMain;
 
-public class UpdateLoop implements Runnable, Data {
-	@Override
+public class UpdateLoop implements Data {
 	public void run() {
 //		System.out.println("UPS: "+UPS);
 		final long updateSpeed = 1000000000/UPS;
