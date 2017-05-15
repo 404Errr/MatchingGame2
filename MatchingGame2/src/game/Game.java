@@ -9,7 +9,7 @@ import data.Data;
 public class Game implements Data {
 	private static UpdateLoop updateLoop;
 	private static List<Item> allItems, availableItems, currentItemOptions;
-	private static Item correctItem;
+	private static Item correctItem, guess;
 	private static List<Integer> gradeFilter;
 
 	public static void init() {
@@ -17,17 +17,19 @@ public class Game implements Data {
 		allItems = new ArrayList<>();
 		availableItems = new ArrayList<>();
 		currentItemOptions = new ArrayList<>();
+		
 		for (String image:IMAGE_PATHS) {
 			int tempGrade = (int) (Math.random()*4)+9;
 			allItems.add(new Item(image, tempGrade));
 		}
 		gradeFilter = new ArrayList<>();
 //		gradeFilter.add(9);
+		
 		refillChoices();
 	}
 
 	public static void refillChoices() {
-		resetAvailableItems();
+		refreshAvailableItems();
 		currentItemOptions.clear();
 		for (int i = 0;i<CHOICE_COUNT&&i<availableItems.size();i++) currentItemOptions.add(availableItems.get(i));
 		correctItem = currentItemOptions.get((int) (Math.random()*currentItemOptions.size()));
@@ -36,7 +38,7 @@ public class Game implements Data {
 		System.out.println("correct: "+correctItem);
 	}
 
-	public static void resetAvailableItems() {
+	public static void refreshAvailableItems() {
 		availableItems.clear();
 		for (int i = 0;i<allItems.size();i++) {
 			if (filter(allItems.get(i))) availableItems.add(allItems.get(i));
@@ -44,11 +46,24 @@ public class Game implements Data {
 		Collections.shuffle(availableItems);
 	}
 
+	public static void pick(Item item) {
+		guess = item;
+	}
+	
+	public static void next() {
+		guess = null;
+		refillChoices();
+	}
+	
 	private static boolean filter(Item item) {
 		if (!gradeFilter.isEmpty()&&!gradeFilter.contains(item.getGrade())) return false;
 		return true;
 	}
 
+	public static boolean foundCorrect() {
+		return correctItem==guess;
+	}
+	
 	public static List<Item> getAllItems() {
 		return allItems;
 	}
@@ -68,4 +83,6 @@ public class Game implements Data {
 	public static UpdateLoop getUpdateLoop() {
 		return updateLoop;
 	}
+
+	
 }

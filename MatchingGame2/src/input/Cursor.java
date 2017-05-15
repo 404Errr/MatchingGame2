@@ -1,29 +1,39 @@
-//package input;
-//
-//import java.awt.event.MouseEvent;
-//
-//import javax.swing.SwingUtilities;
-//
-//import graphics.Window;
-//
-//public class Cursor {
-//	private static int x, y;
-//
-//	public static void click(MouseEvent e, boolean down) {
-//		//TODO
-//	}
-//
-//	public static void updateMouse(MouseEvent e) {
-////		e = SwingUtilities.convertMouseEvent(Window.getFrame(), e, Window.getRenderer());
-//		x = e.getX();//set position
-//		y = e.getY();
-//	}
-//
-//	public static int getX() {
-//		return x;
-//	}
-//
-//	public static int getY() {
-//		return y;
-//	}
-//}
+package input;
+
+import java.awt.event.MouseEvent;
+
+import javax.swing.SwingUtilities;
+
+import main.MatchingMain;
+
+public class Cursor {
+	private int x, y;
+
+	public void click(MouseEvent e, boolean down) {
+		//TODO
+	}
+
+	public void updateMouse(MouseEvent e) {
+		e = SwingUtilities.convertMouseEvent(MatchingMain.getWindow(), e, MatchingMain.getWindow().getRenderer());
+		x = e.getX();//set position
+		y = e.getY();
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	@Override
+	public String toString() {
+		return x+", "+y;
+	}
+	
+	
+}
+
+
+

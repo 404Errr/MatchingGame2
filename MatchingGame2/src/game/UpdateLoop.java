@@ -1,7 +1,8 @@
 package game;
 
 import data.Data;
-import graphics.Window;
+import input.Cursor;
+import input.buttons.Button;
 import main.MatchingMain;
 
 public class UpdateLoop implements Data {
@@ -26,8 +27,10 @@ public class UpdateLoop implements Data {
 
 	private void update() {
 		try {
-		
-			
+			Cursor cursor = MatchingMain.getWindow().getInput().getCursor();
+			for (Button button:MatchingMain.getWindow().getButtons()) {
+				if (button.contains(cursor)) button.click();
+			}
 			
 		}
 		catch (Exception e) {

@@ -12,11 +12,11 @@ import javax.imageio.ImageIO;
 public interface Data {
 	int UPS = 30;
 
-	int IMAGE_SIZE = 400;//, UI_PADDING = 20, UI_BUTTON_HEIGHT = 40;
+	int IMAGE_SIZE = 400, IMAGE_X = 0;
 
 	int CHOICE_COUNT = 3;//number of multiple choice options
 
-	List<String> IMAGE_PATHS = new ArrayList<>();
+	List<String> IMAGE_PATHS = new ArrayList<>();//location of every valid image
 
 	File FOLDER = new File("src/pictures");
 	String[] EXTS = new String[] {".png", ".jpg"};
@@ -31,7 +31,7 @@ public interface Data {
 		return null;
 	}
 
-	static void load() {//load image paths
+	static void loadImages() {//load image paths
 		FilenameFilter imageFilter = new FilenameFilter() {
 			@Override
 			public boolean accept(File f, String name) {//check if file is a type of picture

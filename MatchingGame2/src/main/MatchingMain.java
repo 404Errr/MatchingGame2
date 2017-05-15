@@ -8,7 +8,7 @@ public class MatchingMain {
 	static Window window;
 	
 	public static void main(String[] args) {
-		Data.load();
+		Data.loadImages();
 		Game.init();
 		window = new Window();
 		Game.getUpdateLoop().run();
