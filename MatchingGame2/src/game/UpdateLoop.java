@@ -1,6 +1,7 @@
 package game;
 
 import data.Data;
+import graphics.Window;
 import main.MatchingMain;
 
 public class UpdateLoop implements Data {

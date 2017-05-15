@@ -10,9 +10,8 @@ public class MatchingMain {
 	public static void main(String[] args) {
 		Data.load();
 		Game.init();
-//		window = new Window();
-//		window.start();
-//		Game.getUpdateLoop().run();
+		window = new Window();
+		Game.getUpdateLoop().run();
 	}
 
 	public static Window getWindow() {
