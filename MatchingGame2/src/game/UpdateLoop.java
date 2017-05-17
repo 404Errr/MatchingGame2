@@ -26,11 +26,8 @@ public class UpdateLoop implements Data {
 
 	private void update() {
 		try {
-			Cursor cursor = Game.getWindow().getInput().getCursor();
-			for (Button button:Game.getWindow().getButtons()) {
-				if (button.contains(cursor)) button.setHovered(true);
-				else button.setHovered(false);
-			}
+		
+			
 			
 		}
 		catch (Exception e) {

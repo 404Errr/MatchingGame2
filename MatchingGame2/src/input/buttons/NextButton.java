@@ -9,7 +9,6 @@ public class NextButton extends Button {
 
 	@Override
 	public void click() {
-		System.out.println("next");
 		Game.next();
 	}
 

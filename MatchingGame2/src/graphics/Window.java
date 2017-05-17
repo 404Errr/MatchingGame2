@@ -33,9 +33,9 @@ public class Window extends JFrame implements Data {
 
 	public void initButtons() {
 		buttons = new ArrayList<>();
-		buttons.add(new NextButton(10, 10, 80, 40));
+		buttons.add(new NextButton(10, 10, 120, 60));
 		for (int i = 0;i<CHOICE_COUNT;i++) {
-			buttons.add(new ChoiceButton(10+100*i, 80, 80, 40));
+			buttons.add(new ChoiceButton(10+180*i, 80, 160, 60));
 		}
 	}
 	

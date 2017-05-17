@@ -22,6 +22,8 @@ public interface Data {
 
 	int CHOICE_COUNT = 3;//number of multiple choice options
 	boolean AUTO_NEXT = true;
+	boolean REQUIRE_ANSWER = false;
+	boolean PERSISTENT = true;//show items only once
 	
 	List<String> IMAGE_PATHS = new ArrayList<>();//location of every valid image
 

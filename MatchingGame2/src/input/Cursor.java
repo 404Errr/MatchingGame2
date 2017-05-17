@@ -26,6 +26,11 @@ public class Cursor {
 		e = SwingUtilities.convertMouseEvent(Game.getWindow(), e, Game.getWindow().getRenderer());
 		x = e.getX();//set position
 		y = e.getY();
+		
+		for (Button button:Game.getWindow().getButtons()) {
+			if (button.contains(this)) button.setHovered(true);
+			else button.setHovered(false);
+		}
 	}
 
 	public int getX() {

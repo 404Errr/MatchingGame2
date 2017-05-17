@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -9,6 +10,8 @@ import javax.swing.JPanel;
 import data.Data;
 import game.Game;
 import input.buttons.Button;
+import input.buttons.ChoiceButton;
+import input.buttons.NextButton;
 
 @SuppressWarnings("serial")
 public class Renderer extends JPanel implements Data {
@@ -16,13 +19,16 @@ public class Renderer extends JPanel implements Data {
 	public void paint(Graphics g0) {
 		Graphics2D g = (Graphics2D) g0;
 		super.paintComponent(g);
+		g.setFont(new Font("Helvetica", Font.BOLD, 20));
 		if (Game.getCorrectItem()!=null) drawImage(g, Game.getCorrectItem().getImage());
 		drawButtons(g);
 	}
 
-	private void drawButtons(Graphics2D g) {
+	private void drawButtons(Graphics2D g) {//TEMPORARY
 		for (Button button:Game.getWindow().getButtons()) {
-			g.fillRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
+			g.drawRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
+			if (button instanceof NextButton) g.drawString("next", button.getX()+5, button.getY()+button.getHeight()*2/3);
+			if (button instanceof ChoiceButton) g.drawString(((ChoiceButton) button).getItem().getName(), button.getX()+5, button.getY()+button.getHeight()*2/3);
 		}
 	}
 	

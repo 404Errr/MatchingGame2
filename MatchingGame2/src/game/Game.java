@@ -26,18 +26,22 @@ public class Game implements Data {
 			allItems.add(new Item(image, tempGrade));
 		}
 		gradeFilter = new ArrayList<>();
-//		gradeFilter.add(9);
 		
-		refillChoices();
 		window = new Window();
+		refreshAvailableItems();
 		next();
 	}
 
 	public static void refillChoices() {
-		refreshAvailableItems();
+		//refreshAvailableItems();
+		Collections.shuffle(availableItems);
 		currentItemOptions.clear();
 		for (int i = 0;i<CHOICE_COUNT&&i<availableItems.size();i++) currentItemOptions.add(availableItems.get(i));
-		correctItem = currentItemOptions.get((int) (Math.random()*currentItemOptions.size()));
+		while (TRUE==PERSISTENT&&correctItem) {//FIXME
+			correctItem = currentItemOptions.get((int) (Math.random()*currentItemOptions.size()));
+			correctItem.shown();//TODO
+		}
+		if (persistent) remove it availableItems.remove(correctItem);
 //		for (int i = 0;i<currentItemOptions.size();i++) System.out.println(currentItemOptions.get(i));
 //		System.out.println("correct: "+correctItem);
 	}
@@ -47,15 +51,16 @@ public class Game implements Data {
 		for (int i = 0;i<allItems.size();i++) {
 			if (filter(allItems.get(i))) availableItems.add(allItems.get(i));
 		}
-		Collections.shuffle(availableItems);
 	}
 
 	public static void proccessGuess() {//TODO
 		if (foundCorrect()) {
-			System.out.println("correct");
+			System.out.println("+correct");
+			//change score?
 		}
 		else {
-			System.out.println("incorrect");
+			System.out.println("-incorrect");
+			//change score?
 		}
 	}
 	
@@ -63,9 +68,15 @@ public class Game implements Data {
 		guess = item;
 		System.out.println("picked "+item);
 		proccessGuess();
+		if (foundCorrect()&&AUTO_NEXT==TRUE) next();
 	}
 	
 	public static void next() {//go to next set of choices
+		if (correctItem!=null&&TRUE==REQUIRE_ANSWER&&!guessed()) {
+			System.out.println("didn't guess yet");
+			return;
+		}
+		if (correctItem!=null) System.out.println("next");
 		guess = null;
 		refillChoices();
 		int i = 0;
@@ -82,6 +93,10 @@ public class Game implements Data {
 		return true;
 	}
 
+	public static boolean guessed() {
+		return guess!=null;
+	}
+	
 	public static boolean foundCorrect() {
 		return correctItem==guess;
 	}
@@ -109,4 +124,6 @@ public class Game implements Data {
 	public static Window getWindow() {
 		return window;
 	}
+	
+	private static boolean TRUE = true;//ignore this
 }
