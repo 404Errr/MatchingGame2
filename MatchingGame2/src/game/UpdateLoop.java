@@ -3,7 +3,6 @@ package game;
 import data.Data;
 import input.Cursor;
 import input.buttons.Button;
-import main.MatchingMain;
 
 public class UpdateLoop implements Data {
 	public void run() {
@@ -14,7 +13,7 @@ public class UpdateLoop implements Data {
 			startTime = System.nanoTime();
 			update();
 //			Window.getRenderer().repaint();
-			MatchingMain.getWindow().repaint();
+			Game.getWindow().repaint();
 			wait = (updateSpeed-(System.nanoTime()-startTime))/1000000;
 			try {
 				if (wait>0) Thread.sleep(wait);
@@ -27,9 +26,10 @@ public class UpdateLoop implements Data {
 
 	private void update() {
 		try {
-			Cursor cursor = MatchingMain.getWindow().getInput().getCursor();
-			for (Button button:MatchingMain.getWindow().getButtons()) {
-				if (button.contains(cursor)) button.click();
+			Cursor cursor = Game.getWindow().getInput().getCursor();
+			for (Button button:Game.getWindow().getButtons()) {
+				if (button.contains(cursor)) button.setHovered(true);
+				else button.setHovered(false);
 			}
 			
 		}

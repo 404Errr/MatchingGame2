@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import data.Data;
 import game.Game;
-import main.MatchingMain;
+import input.buttons.Button;
 
 @SuppressWarnings("serial")
 public class Renderer extends JPanel implements Data {
@@ -16,10 +16,16 @@ public class Renderer extends JPanel implements Data {
 	public void paint(Graphics g0) {
 		Graphics2D g = (Graphics2D) g0;
 		super.paintComponent(g);
-		
 		if (Game.getCorrectItem()!=null) drawImage(g, Game.getCorrectItem().getImage());
+		drawButtons(g);
 	}
 
+	private void drawButtons(Graphics2D g) {
+		for (Button button:Game.getWindow().getButtons()) {
+			g.fillRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
+		}
+	}
+	
 //	private void drawScore() {
 //		g.setFont(new Font("Helvetica", Font.BOLD, UI_PADDING));
 //		g.setColor(Color.BLACK);
@@ -51,6 +57,6 @@ public class Renderer extends JPanel implements Data {
 //	}
 //
 	private void drawImage(Graphics2D g, BufferedImage image) {
-			g.drawImage(image, MatchingMain.getWindow().getWidth()/2-IMAGE_SIZE/2, 20, IMAGE_SIZE*(image.getWidth()/image.getHeight()), IMAGE_SIZE, null);
+		g.drawImage(image, IMAGE_X, IMAGE_Y, IMAGE_SIZE, IMAGE_SIZE*(image.getHeight()/image.getWidth()), null);
 	}
 }

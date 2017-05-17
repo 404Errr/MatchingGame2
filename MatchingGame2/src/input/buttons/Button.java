@@ -4,6 +4,7 @@ import input.Cursor;
 
 public abstract class Button {
 	protected int x, y, width, height;
+	protected boolean hovered;
 	
 	public Button(int x, int y, int width, int height) {
 		this.x = x;
@@ -18,6 +19,14 @@ public abstract class Button {
 		return cursor.getX()>=x&&cursor.getX()<=x+width&&cursor.getY()>=y&&cursor.getY()<=y+height;
 	}
 	
+	public boolean isHovered() {
+		return hovered;
+	}
+
+	public void setHovered(boolean hovered) {
+		this.hovered = hovered;
+	}
+
 	public int getX() {
 		return x;
 	}
@@ -36,7 +45,7 @@ public abstract class Button {
 
 	@Override
 	public String toString() {
-		return "Button [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + "]";
+		return "Button\t"+x+","+y+"\t"+width+", "+height;
 	}
 	
 	

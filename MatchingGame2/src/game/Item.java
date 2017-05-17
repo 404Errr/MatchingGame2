@@ -5,9 +5,9 @@ import java.awt.image.BufferedImage;
 import data.Data;
 
 public class Item {
-	private String imagePath;//file name
+	private String imagePath;//file name and directory
 	private int grade;//graduation year/grade
-	private String name;//name
+	private String name;//name of the item
 
 	public Item(String imagePath, int grade) {
 		this.imagePath = imagePath;
@@ -15,7 +15,7 @@ public class Item {
 		this.name = imagePath;//temporary
 	}
 
-	public BufferedImage getImage() {
+	public BufferedImage getImage() {//returns the image associated with the item
 		return Data.getImage(imagePath);
 	}
 
@@ -29,7 +29,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "grade: " + grade + ", name: " + name;
+		return name+"\tgrade: "+grade;
 	}
 
 

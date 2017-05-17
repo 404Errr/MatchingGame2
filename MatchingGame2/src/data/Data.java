@@ -1,5 +1,7 @@
 package data;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -12,16 +14,21 @@ import javax.imageio.ImageIO;
 public interface Data {
 	int UPS = 30;
 
-	int IMAGE_SIZE = 400, IMAGE_X = 0;
+	GraphicsDevice SCREEN = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	
+	int IMAGE_SIZE = 400;//width
+	int IMAGE_X = SCREEN.getDisplayMode().getWidth()/2-IMAGE_SIZE/2;
+	int IMAGE_Y = 40;
 
 	int CHOICE_COUNT = 3;//number of multiple choice options
-
+	boolean AUTO_NEXT = true;
+	
 	List<String> IMAGE_PATHS = new ArrayList<>();//location of every valid image
 
 	File FOLDER = new File("src/pictures");
-	String[] EXTS = new String[] {".png", ".jpg"};
+	String[] EXTENSIONS = new String[] {".png", ".jpg"};
 
-	static BufferedImage getImage(String fileName) {
+	static BufferedImage getImage(String fileName) {//temporary
 		try {
 			return ImageIO.read(new File(FOLDER+"/"+fileName));//temporary
 		}
@@ -35,7 +42,7 @@ public interface Data {
 		FilenameFilter imageFilter = new FilenameFilter() {
 			@Override
 			public boolean accept(File f, String name) {//check if file is a type of picture
-				for (String ext:EXTS) if (name.endsWith(ext)) return true;
+				for (String ext:EXTENSIONS) if (name.endsWith(ext)) return true;
 				return false;
 			}
 		};

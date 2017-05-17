@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import data.Data;
 import input.Input;
 import input.buttons.Button;
+import input.buttons.ChoiceButton;
 import input.buttons.NextButton;
 
 @SuppressWarnings("serial")
-public class Window extends JFrame {
+public class Window extends JFrame implements Data {
 	private Input input;
 	private Renderer renderer;
 	private List<Button> buttons;
@@ -31,7 +33,10 @@ public class Window extends JFrame {
 
 	public void initButtons() {
 		buttons = new ArrayList<>();
-		buttons.add(new NextButton(10, 10, 40, 40));
+		buttons.add(new NextButton(10, 10, 80, 40));
+		for (int i = 0;i<CHOICE_COUNT;i++) {
+			buttons.add(new ChoiceButton(10+100*i, 80, 80, 40));
+		}
 	}
 	
 	public Renderer getRenderer() {

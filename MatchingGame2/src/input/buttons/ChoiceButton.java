@@ -22,4 +22,11 @@ public class ChoiceButton extends Button {
 	public Item getItem() {
 		return item;
 	}
+
+	@Override
+	public String toString() {
+		return "Choice"+super.toString();
+	}
+	
+	
 }
