@@ -6,7 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -23,18 +26,38 @@ public interface Data {
 	int CHOICE_COUNT = 3;//number of multiple choice options
 	boolean AUTO_NEXT = true;
 	boolean REQUIRE_ANSWER = false;
-	boolean PERSISTENT = true;//show items only once
+	boolean PERSISTENT = false;//show items only once
+	boolean SHOW_CORRECT = true;
 	
-	List<String> IMAGE_PATHS = new ArrayList<>();//location of every valid image
-
+	
 	File FOLDER = new File("src/pictures");
 	String[] EXTENSIONS = new String[] {".png", ".jpg"};
+	String NAMES_DIR = "src/names/names";
+	
+	List<String> IMAGE_NAMES = new ArrayList<>();//location of every valid image
+//	List<String> ITEM_NAMES = Files.readAllLines(Paths.get(NAMES_DIR));handle this//FIXME
 
+	static String lookupName(String imageName) {//TODO FIXME
+//		try {
+//			if (ITEM_NAMES==null) ITEM_NAMES;
+//			for (String line:ITEM_NAMES) {
+//				if (line.startsWith("//")) continue;
+//				String[] split = line.split(":");
+//				System.out.println(Arrays.toString(split)+"\t"+imageName);
+//				if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return split[0]; 
+//			}
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		return "";
+	}
+	
 	static BufferedImage getImage(String fileName) {//temporary
 		try {
 			return ImageIO.read(new File(FOLDER+"/"+fileName));//temporary
 		}
-		catch (IOException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -50,7 +73,7 @@ public interface Data {
 		};
 		if (FOLDER.isDirectory()) {
 			for (File picture:FOLDER.listFiles(imageFilter)) {//load each of the pictures paths
-				IMAGE_PATHS.add(picture.getName());
+				IMAGE_NAMES.add(picture.getName());
 //				IMAGES.add(picture);
 //				System.out.println("loaded "+picture.getName());
 			}

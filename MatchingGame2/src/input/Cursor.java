@@ -16,7 +16,6 @@ public class Cursor {
 			if (down) {
 				for (Button button:Game.getWindow().getButtons()) {
 					if (button.contains(this)) button.click();
-					
 				}				
 			}
 		}

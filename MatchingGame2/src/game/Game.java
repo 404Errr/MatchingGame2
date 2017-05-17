@@ -20,9 +20,9 @@ public class Game implements Data {
 		allItems = new ArrayList<>();
 		availableItems = new ArrayList<>();
 		currentItemOptions = new ArrayList<>();
-		for (String image:IMAGE_PATHS) {
+		for (String imageName:IMAGE_NAMES) {
 			int tempGrade = (int) (Math.random()*4)+9;
-			allItems.add(new Item(image, tempGrade));
+			allItems.add(new Item(imageName, tempGrade));
 		}
 		gradeFilter = new ArrayList<>();
 		window = new Window();
@@ -32,52 +32,29 @@ public class Game implements Data {
 		updateLoop.run();
 	}
 
-//	public static void refillChoices() {
-//		//refreshAvailableItems();
-//		boolean found = false;
-//		for (int i = 0;i<availableItems.size();i++) if (TRUE==PERSISTENT&&availableItems.get(i).getTimesShown()<1) found = true;
-//		if (TRUE==PERSISTENT&&!found) {
-//			outOfAvailableItems();
-//			return;
-//		}
-//		do {
-//			Collections.shuffle(availableItems);
-//			currentItemOptions.clear();
-//			for (int i = 0;i<CHOICE_COUNT&&i<availableItems.size();i++)	currentItemOptions.add(availableItems.get(i));
-//			correctItem = currentItemOptions.get(0);
-//			
-//		} while (TRUE==PERSISTENT&&correctItem.getTimesShown()>0);
-//		correctItem.shown();
-//		Collections.shuffle(currentItemOptions);
-////		for (int i = 0;i<currentItemOptions.size();i++) System.out.println(currentItemOptions.get(i));
-////		System.out.println("correct: "+correctItem);
-//	}
-
-	public static void refillChoices() {todo//TODO
-		Collections.shuffle(availableItems);
-		currentItemOptions.clear();
-		for (int i = 0;i<availableItems.size();i++) {
-			if (correctItem==null&&(TRUE==PERSISTENT&&correctItem.getTimesShown()<1)) {
-				currentItemOptions.add(availableItems.get(i));
+	public static void refillChoices() {//TODO
+		Collections.shuffle(availableItems);//shuffle available items
+		currentItemOptions.clear();//empty options
+		boolean found = false;
+		for (int i = 0;!found&&i<availableItems.size();i++) {//if it hasnt found a valid correct item
+			if (PERSISTENT!=TRUE||availableItems.get(i).getTimesShown()<1) {//if not persistent (pick 0) else pick only if hasnt been shown
 				correctItem = availableItems.get(i);
+				currentItemOptions.add(correctItem);
+				found = true;
 			}
-			if (currentItemOptions.size()<CHOICE_COUNT) currentItemOptions.add(availableItems.get(i));
 		}
-		Collections.shuffle(currentItemOptions);
-		
-//			if (correctItem==null&&(TRUE==PERSISTENT&&correctItem.getTimesShown()<1)) {
-//				correctItem = item;
-//				currentItemOptions.add(item);
-//			}
-//			if (correctItem!=item) {
-//				currentItemOptions.add(item);
-//			}
+		for (int i = 0;currentItemOptions.size()<CHOICE_COUNT&&i<availableItems.size();i++) {
+			if (availableItems.get(i)!=correctItem) currentItemOptions.add(availableItems.get(i));//fill the rest of the choices with items that arent the correct item
+		}
+		correctItem.used();//increment the use counter on the correct item
+		if (TRUE==PERSISTENT&&!found) outOfAvailableItems();//if out of available items
+		Collections.shuffle(currentItemOptions);//shuffle choices
 	}
 	
 	public static void refreshAvailableItems() {
 		availableItems.clear();
 		for (int i = 0;i<allItems.size();i++) {
-			if (filter(allItems.get(i))) availableItems.add(allItems.get(i));
+			if (filter(allItems.get(i))) availableItems.add(allItems.get(i));//if the item fits the filter, add it to available
 		}
 	}
 
@@ -96,7 +73,7 @@ public class Game implements Data {
 		}
 	}
 	
-	public static void pick(Item item) {//pick an item
+	public static void pick(Item item) {//pick (guess) the item
 		guess = item;
 		System.out.println("picked "+item);
 		proccessGuess();
@@ -104,17 +81,17 @@ public class Game implements Data {
 	}
 	
 	public static void next() {//go to next set of choices
-		if (correctItem!=null&&TRUE==REQUIRE_ANSWER&&!guessed()) {
+		if (TRUE==REQUIRE_ANSWER&&!guessed()) {//if didnt guess
 			System.out.println("didn't guess yet");
 			return;
 		}
 		if (correctItem!=null) System.out.println("next");
-		guess = null;
-		refillChoices();
+		guess = null;//reset guess
+		refillChoices();//refill options
 		int i = 0;
 		for (Button choiceButton:Game.getWindow().getButtons()) {
 			if (choiceButton instanceof ChoiceButton) {
-				((ChoiceButton) choiceButton).setItem(currentItemOptions.get(i));
+				((ChoiceButton) choiceButton).setItem(currentItemOptions.get(i));//set the items of the choice buttons
 				i++;
 			}
 		}
@@ -130,7 +107,7 @@ public class Game implements Data {
 	}
 	
 	public static boolean foundCorrect() {
-		return correctItem==guess;
+		return correctItem!=null&&guess!=null&&correctItem==guess;
 	}
 	
 	public static List<Item> getAllItems() {

@@ -13,7 +13,7 @@ public class Item {
 	public Item(String imagePath, int grade) {
 		this.imagePath = imagePath;
 		this.grade = grade;
-		this.name = imagePath;//temporary
+		this.name = Data.lookupName(imagePath);//temporary
 	}
 
 	public BufferedImage getImage() {//returns the image associated with the item
@@ -28,7 +28,7 @@ public class Item {
 		return name;
 	}
 
-	public void shown() {
+	public void used() {
 		timesShown++;
 	}
 
