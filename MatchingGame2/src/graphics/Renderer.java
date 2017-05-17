@@ -28,7 +28,7 @@ public class Renderer extends JPanel implements Data {
 		for (Button button:Game.getWindow().getButtons()) {
 			g.drawRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
 			if (button instanceof NextButton) g.drawString("next", button.getX()+5, button.getY()+button.getHeight()*2/3);
-			if (button instanceof ChoiceButton) g.drawString(((ChoiceButton) button).getItem().getName(), button.getX()+5, button.getY()+button.getHeight()*2/3);
+			if (button instanceof ChoiceButton&&((ChoiceButton) button).getItem()!=null) g.drawString(((ChoiceButton) button).getItem().getName(), button.getX()+5, button.getY()+button.getHeight()*2/3);
 		}
 	}
 	

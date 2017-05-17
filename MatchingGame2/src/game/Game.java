@@ -17,7 +17,6 @@ public class Game implements Data {
 	private static List<Integer> gradeFilter;
 
 	public static void init() {
-		updateLoop = new UpdateLoop();
 		allItems = new ArrayList<>();
 		availableItems = new ArrayList<>();
 		currentItemOptions = new ArrayList<>();
@@ -26,26 +25,55 @@ public class Game implements Data {
 			allItems.add(new Item(image, tempGrade));
 		}
 		gradeFilter = new ArrayList<>();
-		
 		window = new Window();
 		refreshAvailableItems();
 		next();
+		updateLoop = new UpdateLoop();
+		updateLoop.run();
 	}
 
-	public static void refillChoices() {
-		//refreshAvailableItems();
+//	public static void refillChoices() {
+//		//refreshAvailableItems();
+//		boolean found = false;
+//		for (int i = 0;i<availableItems.size();i++) if (TRUE==PERSISTENT&&availableItems.get(i).getTimesShown()<1) found = true;
+//		if (TRUE==PERSISTENT&&!found) {
+//			outOfAvailableItems();
+//			return;
+//		}
+//		do {
+//			Collections.shuffle(availableItems);
+//			currentItemOptions.clear();
+//			for (int i = 0;i<CHOICE_COUNT&&i<availableItems.size();i++)	currentItemOptions.add(availableItems.get(i));
+//			correctItem = currentItemOptions.get(0);
+//			
+//		} while (TRUE==PERSISTENT&&correctItem.getTimesShown()>0);
+//		correctItem.shown();
+//		Collections.shuffle(currentItemOptions);
+////		for (int i = 0;i<currentItemOptions.size();i++) System.out.println(currentItemOptions.get(i));
+////		System.out.println("correct: "+correctItem);
+//	}
+
+	public static void refillChoices() {todo//TODO
 		Collections.shuffle(availableItems);
 		currentItemOptions.clear();
-		for (int i = 0;i<CHOICE_COUNT&&i<availableItems.size();i++) currentItemOptions.add(availableItems.get(i));
-		while (TRUE==PERSISTENT&&correctItem) {//FIXME
-			correctItem = currentItemOptions.get((int) (Math.random()*currentItemOptions.size()));
-			correctItem.shown();//TODO
+		for (int i = 0;i<availableItems.size();i++) {
+			if (correctItem==null&&(TRUE==PERSISTENT&&correctItem.getTimesShown()<1)) {
+				currentItemOptions.add(availableItems.get(i));
+				correctItem = availableItems.get(i);
+			}
+			if (currentItemOptions.size()<CHOICE_COUNT) currentItemOptions.add(availableItems.get(i));
 		}
-		if (persistent) remove it availableItems.remove(correctItem);
-//		for (int i = 0;i<currentItemOptions.size();i++) System.out.println(currentItemOptions.get(i));
-//		System.out.println("correct: "+correctItem);
+		Collections.shuffle(currentItemOptions);
+		
+//			if (correctItem==null&&(TRUE==PERSISTENT&&correctItem.getTimesShown()<1)) {
+//				correctItem = item;
+//				currentItemOptions.add(item);
+//			}
+//			if (correctItem!=item) {
+//				currentItemOptions.add(item);
+//			}
 	}
-
+	
 	public static void refreshAvailableItems() {
 		availableItems.clear();
 		for (int i = 0;i<allItems.size();i++) {
@@ -53,6 +81,10 @@ public class Game implements Data {
 		}
 	}
 
+	public static void outOfAvailableItems() {
+		System.out.println("no more available items");
+	}
+	
 	public static void proccessGuess() {//TODO
 		if (foundCorrect()) {
 			System.out.println("+correct");
