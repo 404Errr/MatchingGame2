@@ -8,23 +8,24 @@ import data.Data;
 import graphics.Window;
 import input.buttons.Button;
 import input.buttons.ChoiceButton;
+import util.Util;
 
 public class Game implements Data {
 	private static Window window;
 	private static UpdateLoop updateLoop;
 	private static List<Item> allItems, availableItems, currentItemOptions;
 	private static Item correctItem, guess;
-	private static List<Integer> gradeFilter;
+//	private static boolean[] gradeFilter;//TODO
+//	private static List<Integer> gradeFilter;
 
 	public static void init() {
 		allItems = new ArrayList<>();
 		availableItems = new ArrayList<>();
 		currentItemOptions = new ArrayList<>();
-		for (String imageName:IMAGE_NAMES) {
-			int tempGrade = (int) (Math.random()*4)+9;
-			allItems.add(new Item(imageName, tempGrade));
+		for (String imageName:IMAGE_LOCATION) {
+			allItems.add(new Item(imageName, Util.getRandomGraduationYear(), Util.getRandomId()));//temporary
 		}
-		gradeFilter = new ArrayList<>();
+//		gradeFilter = new boolean[4];
 		window = new Window();
 		refreshAvailableItems();
 		next();
@@ -32,12 +33,12 @@ public class Game implements Data {
 		updateLoop.run();
 	}
 
-	public static void refillChoices() {//TODO
+	public static void refillChoices() {
 		Collections.shuffle(availableItems);//shuffle available items
 		currentItemOptions.clear();//empty options
 		boolean found = false;
-		for (int i = 0;!found&&i<availableItems.size();i++) {//if it hasnt found a valid correct item
-			if (PERSISTENT!=TRUE||availableItems.get(i).getTimesShown()<1) {//if not persistent (pick 0) else pick only if hasnt been shown
+		for (int i = 0;!found&&i<availableItems.size();i++) {//if it hasnt found a valid correct item yet
+			if (PERSISTENT!=TRUE||availableItems.get(i).getTimesShown()<MAX_SHOWINGS) {//if not persistent (pick 0) else pick only if hasnt been shown
 				correctItem = availableItems.get(i);
 				currentItemOptions.add(correctItem);
 				found = true;
@@ -46,7 +47,7 @@ public class Game implements Data {
 		for (int i = 0;currentItemOptions.size()<CHOICE_COUNT&&i<availableItems.size();i++) {
 			if (availableItems.get(i)!=correctItem) currentItemOptions.add(availableItems.get(i));//fill the rest of the choices with items that arent the correct item
 		}
-		correctItem.used();//increment the use counter on the correct item
+		
 		if (TRUE==PERSISTENT&&!found) outOfAvailableItems();//if out of available items
 		Collections.shuffle(currentItemOptions);//shuffle choices
 	}
@@ -54,12 +55,18 @@ public class Game implements Data {
 	public static void refreshAvailableItems() {
 		availableItems.clear();
 		for (int i = 0;i<allItems.size();i++) {
-			if (filter(allItems.get(i))) availableItems.add(allItems.get(i));//if the item fits the filter, add it to available
+//			if (filter(allItems.get(i))) {//if the item fits the filter, add it to available
+			availableItems.add(allItems.get(i));
+//			}
 		}
 	}
 
-	public static void outOfAvailableItems() {
+	public static void outOfAvailableItems() {//TODO
+		currentItemOptions = new ArrayList<>();
+		correctItem = null;
+		window.initButtons();
 		System.out.println("no more available items");
+		//restart? end program? BSOD?
 	}
 	
 	public static void proccessGuess() {//TODO
@@ -86,21 +93,29 @@ public class Game implements Data {
 			return;
 		}
 		if (correctItem!=null) System.out.println("next");
+		if (guessed()&&((foundCorrect()&&PERSISTENT_ONCE_CORRECT==TRUE&&PERSISTENT==TRUE)||PERSISTENT==TRUE)) correctItem.shown();//increment the use counter on the correct item
 		guess = null;//reset guess
 		refillChoices();//refill options
+		
+		refreshButtons();
+	}
+	
+	public static void refreshButtons() {
 		int i = 0;
 		for (Button choiceButton:Game.getWindow().getButtons()) {
 			if (choiceButton instanceof ChoiceButton) {
-				((ChoiceButton) choiceButton).setItem(currentItemOptions.get(i));//set the items of the choice buttons
+				Item item = null;
+				if (!currentItemOptions.isEmpty()) item = currentItemOptions.get(i);
+				((ChoiceButton) choiceButton).setItem(item);//set the items of the choice buttons
 				i++;
 			}
 		}
 	}
 	
-	private static boolean filter(Item item) {
-		if (!gradeFilter.isEmpty()&&!gradeFilter.contains(item.getGrade())) return false;
-		return true;
-	}
+//	private static boolean filter(Item item) {
+//		if (!gradeFilter.length&&!gradeFilter.contains(item.getGrade())) return false;
+//		return true;
+//	}
 
 	public static boolean guessed() {
 		return guess!=null;
@@ -122,9 +137,13 @@ public class Game implements Data {
 		return correctItem;
 	}
 
-	public static List<Integer> getGroupFilter() {
-		return gradeFilter;
-	}
+//	public static boolean[] getFilter() {
+//		return gradeFilter;
+//	}
+//	
+//	public static void toggleGrade(int index) {
+//		gradeFilter.remove(index);
+//	}
 
 	public static UpdateLoop getUpdateLoop() {
 		return updateLoop;

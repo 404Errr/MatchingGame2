@@ -5,11 +5,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -26,31 +24,47 @@ public interface Data {
 	int CHOICE_COUNT = 3;//number of multiple choice options
 	boolean AUTO_NEXT = true;
 	boolean REQUIRE_ANSWER = false;
-	boolean PERSISTENT = false;//show items only once
-	boolean SHOW_CORRECT = true;
+	boolean PERSISTENT = true;//show items as correct choice limited number of times
+	int MAX_SHOWINGS = 2; 
+	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct 
+//	boolean SHOW_CORRECT = true;
 	
 	
 	File FOLDER = new File("src/pictures");
 	String[] EXTENSIONS = new String[] {".png", ".jpg"};
 	String NAMES_DIR = "src/names/names";
 	
-	List<String> IMAGE_NAMES = new ArrayList<>();//location of every valid image
-//	List<String> ITEM_NAMES = Files.readAllLines(Paths.get(NAMES_DIR));handle this//FIXME
+	List<String> IMAGE_LOCATION = new ArrayList<>();//location of every valid image
+	class IO {
+		private static List<String> ITEM_NAMES;
 
-	static String lookupName(String imageName) {//TODO FIXME
-//		try {
-//			if (ITEM_NAMES==null) ITEM_NAMES;
-//			for (String line:ITEM_NAMES) {
-//				if (line.startsWith("//")) continue;
-//				String[] split = line.split(":");
-//				System.out.println(Arrays.toString(split)+"\t"+imageName);
-//				if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return split[0]; 
-//			}
-//		}
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		return "";
+		static {
+			try {
+				ITEM_NAMES = Files.readAllLines(Paths.get(NAMES_DIR));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		public static String lookupName(String imageName) {
+			try {
+				if (ITEM_NAMES==null) ITEM_NAMES = Files.readAllLines(Paths.get(NAMES_DIR));;
+				for (String line:ITEM_NAMES) {
+					if (line.startsWith("//")) continue;//comments can be made
+					String[] split = line.split(":");
+					if (split.length!=2) {
+						System.err.println("Syntax error: "+line);
+						return "";
+					}
+					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return split[0]; 
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "";
+		}
 	}
 	
 	static BufferedImage getImage(String fileName) {//temporary
@@ -73,11 +87,10 @@ public interface Data {
 		};
 		if (FOLDER.isDirectory()) {
 			for (File picture:FOLDER.listFiles(imageFilter)) {//load each of the pictures paths
-				IMAGE_NAMES.add(picture.getName());
+				IMAGE_LOCATION.add(picture.getName());
 //				IMAGES.add(picture);
 //				System.out.println("loaded "+picture.getName());
 			}
 		}
 	}
-
 }

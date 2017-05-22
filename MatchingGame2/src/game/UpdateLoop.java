@@ -1,8 +1,6 @@
 package game;
 
 import data.Data;
-import input.Cursor;
-import input.buttons.Button;
 
 public class UpdateLoop implements Data {
 	public void run() {
