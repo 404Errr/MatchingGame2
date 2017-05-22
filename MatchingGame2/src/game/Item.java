@@ -12,7 +12,7 @@ public class Item {
 	private int timesShown;//how many times the item has been the correct answer
 	private String name;//name of the item
 
-	public Item(String imagePath, int grade) {
+	public Item(String imagePath) {
 		this.imagePath = imagePath;
 		this.grade = Data.IO.lookupGrade(imagePath);
 		this.name = Data.IO.lookupName(imagePath);

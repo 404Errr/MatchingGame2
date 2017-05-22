@@ -5,6 +5,7 @@ import game.Item;
 
 public class ChoiceButton extends Button {
 	private Item item;
+	private boolean wrong;
 	
 	public ChoiceButton(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -15,7 +16,16 @@ public class ChoiceButton extends Button {
 		Game.pick(item);
 	}
 
+	public boolean isWrong() {
+		return wrong;
+	}
+
+	public void setWrong(boolean wrong) {
+		this.wrong = wrong;
+	}
+
 	public void setItem(Item item) {
+		wrong = false;
 		this.item = item;
 	}
 	

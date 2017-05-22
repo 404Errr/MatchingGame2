@@ -8,7 +8,6 @@ import data.Data;
 import graphics.Window;
 import input.buttons.Button;
 import input.buttons.ChoiceButton;
-import util.Util;
 
 public class Game implements Data {
 	private static Window window;
@@ -72,17 +71,23 @@ public class Game implements Data {
 	public static void proccessGuess() {//TODO
 		if (foundCorrect()) {
 			System.out.println("+correct");
-			//change score?
+			//change a score?
 		}
 		else {
+			for (int i = 0;i<window.getButtons().size();i++) {
+				Button button = window.getButtons().get(i);
+				if (button instanceof ChoiceButton) {
+					if (((ChoiceButton) button).getItem()==guess) ((ChoiceButton) button).setWrong(true);
+				}
+			}
 			System.out.println("-incorrect");
-			//change score?
+			//change a score?
 		}
 	}
 	
 	public static void pick(Item item) {//pick (guess) the item
-		guess = item;
 		System.out.println("picked "+item);
+		guess = item;
 		proccessGuess();
 		if (foundCorrect()&&AUTO_NEXT==TRUE) next();
 	}
@@ -107,6 +112,7 @@ public class Game implements Data {
 				Item item = null;
 				if (!currentItemOptions.isEmpty()) item = currentItemOptions.get(i);
 				((ChoiceButton) choiceButton).setItem(item);//set the items of the choice buttons
+				((ChoiceButton) choiceButton).setWrong(false);
 				i++;
 			}
 		}

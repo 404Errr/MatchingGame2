@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -26,6 +27,8 @@ public class Renderer extends JPanel implements Data {
 
 	private void drawButtons(Graphics2D g) {//TEMPORARY
 		for (Button button:Game.getWindow().getButtons()) {
+			g.setColor(Color.BLACK);
+			if (button instanceof ChoiceButton&&((ChoiceButton) button).isWrong()) g.setColor(Color.RED);
 			g.drawRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
 			if (button instanceof NextButton) {
 				g.drawString("next", button.getX()+5, button.getY()+button.getHeight()*2/3);

@@ -25,7 +25,7 @@ public interface Data {
 	boolean AUTO_NEXT = true;
 	boolean REQUIRE_ANSWER = false;
 	boolean PERSISTENT = true;//show items as correct choice limited number of times
-	int MAX_SHOWINGS = 2; 
+	int MAX_SHOWINGS = 1; 
 	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct 
 //	boolean SHOW_CORRECT = true;
 	
@@ -76,9 +76,22 @@ public interface Data {
 			}
 			return -1;
 		}
+		
+		public static int lookupGrade(String imageName) {
+			try {
+				if (ITEM_CONFIG==null) ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
+				for (String line:ITEM_CONFIG) {
+					if (line.startsWith("//")) continue;//comments can be made
+					String[] split = line.split(":");
+					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return Integer.valueOf(split[3]); 
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return -1;
+		}
 	}
-	
-	add thingy lookup grade
 	
 	static BufferedImage getImage(String fileName) {//temporary
 		try {
