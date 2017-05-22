@@ -1,11 +1,12 @@
 package input.buttons;
 
+import data.Data;
 import game.Game;
 import game.Item;
 
-public class ChoiceButton extends Button {
+public class ChoiceButton extends Button implements Data {
 	private Item item;
-	private boolean wrong, correct;//make int TODO
+	private int rightWrong;
 	
 	public ChoiceButton(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -16,25 +17,16 @@ public class ChoiceButton extends Button {
 		Game.pick(item);
 	}
 
-	public boolean isWrong() {
-		return wrong;
+	public int getRightWrong() {
+		return rightWrong;
 	}
 
-	public void setWrong(boolean wrong) {
-		this.wrong = wrong;
-	}
-
-	public boolean isCorrect() {
-		return correct;
-	}
-
-	public void setCorrect(boolean correct) {
-		this.correct = correct;
+	public void setRightWrong(int rightWrong) {
+		this.rightWrong = rightWrong;
 	}
 
 	public void setItem(Item item) {
-		wrong = false;
-		correct = false;
+		rightWrong = NONE;
 		this.item = item;
 	}
 	

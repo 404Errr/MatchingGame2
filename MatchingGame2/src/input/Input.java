@@ -8,6 +8,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import game.Game;
+
 public class Input implements KeyListener, MouseMotionListener, MouseListener, MouseWheelListener {
 	private Cursor cursor;
 	
@@ -21,7 +23,42 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener, M
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-//		if (e.getKeyCode()==KeyEvent.VK_N) Game.refillChoices();//temporary
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_SPACE://next
+			Game.next(false);
+			break;
+		case KeyEvent.VK_R://reset
+			Game.resetPersistence();
+			Game.next(true);
+			break;
+		case KeyEvent.VK_1:
+			Game.pick(Game.getCurrentItemOptions().get(0));
+			break;
+		case KeyEvent.VK_2:
+			Game.pick(Game.getCurrentItemOptions().get(1));
+			break;
+		case KeyEvent.VK_3:
+			Game.pick(Game.getCurrentItemOptions().get(2));
+			break;
+		case KeyEvent.VK_4:
+			Game.pick(Game.getCurrentItemOptions().get(3));
+			break;
+		case KeyEvent.VK_5:
+			Game.pick(Game.getCurrentItemOptions().get(4));
+			break;
+		case KeyEvent.VK_6:
+			Game.pick(Game.getCurrentItemOptions().get(5));
+			break;
+		case KeyEvent.VK_7:
+			Game.pick(Game.getCurrentItemOptions().get(6));
+			break;
+		case KeyEvent.VK_8:
+			Game.pick(Game.getCurrentItemOptions().get(7));
+			break;
+		case KeyEvent.VK_9:
+			Game.pick(Game.getCurrentItemOptions().get(8));
+			break;
+		}
 	}
 	
 	@Override

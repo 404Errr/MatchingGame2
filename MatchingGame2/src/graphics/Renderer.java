@@ -16,20 +16,27 @@ import input.buttons.NextButton;
 
 @SuppressWarnings("serial")
 public class Renderer extends JPanel implements Data {
+	private BufferedImage image;
+	
 	@Override
 	public void paint(Graphics g0) {
 		Graphics2D g = (Graphics2D) g0;
 		super.paintComponent(g);
 		g.setFont(new Font("Helvetica", Font.BOLD, 20));
-		if (Game.getCorrectItem()!=null) drawImage(g, Game.getCorrectItem().getImage());
+		if (image!=null) drawImage(g, image/*Game.getCorrectItem().getImage()*/);
 		drawButtons(g);
 	}
 
 	private void drawButtons(Graphics2D g) {//TEMPORARY
 		for (Button button:Game.getWindow().getButtons()) {
-			g.setColor(Color.BLACK);
-			if (button instanceof ChoiceButton&&((ChoiceButton) button).isWrong()) g.setColor(Color.RED);
+			if (button instanceof ChoiceButton) {
+				int rW = ((ChoiceButton) button).getRightWrong();
+				if (SHOW_CORRECT==TRUE&&((ChoiceButton) button).getItem()==Game.getCorrectItem()) g.setColor(Color.CYAN);
+				if (rW==WRONG) g.setColor(Color.RED);
+				if (rW==RIGHT) g.setColor(Color.GREEN);
+			}
 			g.drawRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
+			g.setColor(Color.BLACK);
 			if (button instanceof NextButton) {
 				g.drawString("next", button.getX()+5, button.getY()+button.getHeight()*2/3);
 			}
@@ -72,4 +79,12 @@ public class Renderer extends JPanel implements Data {
 	private void drawImage(Graphics2D g, BufferedImage image) {
 		g.drawImage(image, IMAGE_X, IMAGE_Y, IMAGE_SIZE, IMAGE_SIZE*(image.getHeight()/image.getWidth()), null);
 	}
+	
+	public void setImage(BufferedImage image) {
+		this.image = image;
+	}
+
+
+
+	private static boolean TRUE = true;//ignore this
 }

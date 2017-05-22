@@ -13,7 +13,7 @@ public class Cursor {
 	
 	public void click(MouseEvent e, boolean down) {
 		if (e.getButton()==MouseEvent.BUTTON1) {
-			if (down) {
+			if (!down) {
 				for (Button button:Game.getWindow().getButtons()) {
 					if (button.contains(this)) button.click();
 				}				

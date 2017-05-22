@@ -27,7 +27,7 @@ public class Game implements Data {
 //		gradeFilter = new boolean[4];
 		window = new Window();
 		refreshAvailableItems();
-		next();
+		next(true);
 		updateLoop = new UpdateLoop();
 		updateLoop.run();
 	}
@@ -38,7 +38,7 @@ public class Game implements Data {
 		boolean found = false;
 		for (int i = 0;!found&&i<availableItems.size();i++) {//if it hasnt found a valid correct item yet
 			if (PERSISTENT!=TRUE||availableItems.get(i).getTimesShown()<MAX_SHOWINGS) {//if not persistent (pick 0) else pick only if hasnt been shown
-				correctItem = availableItems.get(i);
+				setCorrectItem(availableItems.get(i));
 				currentItemOptions.add(correctItem);
 				found = true;
 			}
@@ -50,6 +50,12 @@ public class Game implements Data {
 		if (TRUE==PERSISTENT&&!found) outOfAvailableItems();//if out of available items
 		Collections.shuffle(currentItemOptions);//shuffle choices
 	}
+
+	public static void resetPersistence() {
+		for (int i = 0;i<availableItems.size();i++) {
+			availableItems.get(i).setTimesShown(0);
+		}
+	}
 	
 	public static void refreshAvailableItems() {
 		availableItems.clear();
@@ -60,7 +66,7 @@ public class Game implements Data {
 
 	public static void outOfAvailableItems() {//TODO
 		currentItemOptions = new ArrayList<>();
-		correctItem = null;
+		setCorrectItem(null);
 		window.initButtons();
 		System.out.println("no more available items");
 		//restart? end program? BSOD?
@@ -75,26 +81,27 @@ public class Game implements Data {
 			System.out.println("-incorrect");
 			//change a score?
 		}
-//		for (int i = 0;i<window.getButtons().size();i++) {
-//			Button button = window.getButtons().get(i);
-//			if (button instanceof ChoiceButton) {
-//				ChoiceButton cButton;
-//				if (((ChoiceButton) button).getItem()==guess) {
-//					if ((ChoiceButton) button).setWrong(!foundCorrect());
-//				}
-//			}
-//		}
+		for (int i = 0;i<window.getButtons().size();i++) {
+			Button button = window.getButtons().get(i);
+			if (button instanceof ChoiceButton) {
+				ChoiceButton cButton = ((ChoiceButton) button);
+				if (cButton.getItem()==guess) {
+					if (foundCorrect()) cButton.setRightWrong(RIGHT); 
+					else cButton.setRightWrong(WRONG);
+				}
+			}
+		}
 	}
 	
 	public static void pick(Item item) {//pick (guess) the item
 		System.out.println("picked "+item);
-		guess = item;
+		/*if (!foundCorrect()) */guess = item;
 		proccessGuess();
-		if (foundCorrect()&&AUTO_NEXT==TRUE) next();
+		if (foundCorrect()&&AUTO_NEXT==TRUE) next(false);
 	}
 	
-	public static void next() {//go to next set of choices
-		if (TRUE==REQUIRE_ANSWER&&!guessed()&&!currentItemOptions.isEmpty()) {//if didnt guess
+	public static void next(boolean force) {//go to next set of choices
+		if (!force&&TRUE==REQUIRE_ANSWER&&!guessed()) {//if didnt guess
 			System.out.println("didn't guess yet");
 			return;
 		}
@@ -112,7 +119,7 @@ public class Game implements Data {
 				Item item = null;
 				if (!currentItemOptions.isEmpty()) item = currentItemOptions.get(i);
 				((ChoiceButton) choiceButton).setItem(item);//set the items of the choice buttons
-				((ChoiceButton) choiceButton).setWrong(false);
+				((ChoiceButton) choiceButton).setRightWrong(NONE);
 				i++;
 			}
 		}
@@ -142,14 +149,12 @@ public class Game implements Data {
 	public static Item getCorrectItem() {
 		return correctItem;
 	}
-
-//	public static boolean[] getFilter() {
-//		return gradeFilter;
-//	}
-//	
-//	public static void toggleGrade(int index) {
-//		gradeFilter.remove(index);
-//	}
+	
+	public static void setCorrectItem(Item correctItem) {
+		Game.correctItem = correctItem;
+		if (correctItem!=null) window.getRenderer().setImage(correctItem.getImage());
+		else window.getRenderer().setImage(null);
+	}
 
 	public static UpdateLoop getUpdateLoop() {
 		return updateLoop;

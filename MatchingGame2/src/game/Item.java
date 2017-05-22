@@ -44,12 +44,17 @@ public class Item {
 	public int getTimesShown() {
 		return timesShown;
 	}
+	
+	public void setTimesShown(int timesShown) {
+		this.timesShown = timesShown;
+	}
 
 	@Override
 	public String toString() {
 		return name+"\tgrade: "+grade+"\tid: "+id;
 	}
 
+	
 
 
 }

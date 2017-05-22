@@ -21,18 +21,18 @@ public interface Data {
 	int IMAGE_X = SCREEN.getDisplayMode().getWidth()/2-IMAGE_SIZE/2;
 	int IMAGE_Y = 40;
 
-	int CHOICE_COUNT = 4;//number of multiple choice options
-	boolean AUTO_NEXT = false;
+	int CHOICE_COUNT = 3;//number of multiple choice options
+	boolean AUTO_NEXT = true;//automatically advance to the next question when correct
 	boolean REQUIRE_ANSWER = true;
 	boolean PERSISTENT = true;//show items as correct choice limited number of times
 	int MAX_SHOWINGS = 1; 
 	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct 
-//	boolean SHOW_CORRECT = true;
+	boolean SHOW_CORRECT = false;
 	
 	
 	File FOLDER = new File("src/pictures");
 	String[] EXTENSIONS = new String[] {".png", ".jpg"};
-	String NAMES_DIR = "src/names/names";
+	String NAMES_DIR = "src/config/items";
 	
 	List<String> IMAGE_LOCATION = new ArrayList<>();//location of every valid image
 	class IO {
@@ -56,9 +56,7 @@ public interface Data {
 					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return split[0]; 
 				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+			catch (Exception e) {}
 			return "";
 		}
 		
@@ -71,9 +69,7 @@ public interface Data {
 					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return Integer.valueOf(split[2]); 
 				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+			catch (Exception e) {}
 			return -1;
 		}
 		
@@ -86,9 +82,7 @@ public interface Data {
 					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return Integer.valueOf(split[3]); 
 				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+			catch (Exception e) {}
 			return -1;
 		}
 	}
@@ -119,4 +113,6 @@ public interface Data {
 			}
 		}
 	}
+	
+	int NONE = 0, RIGHT = 1, WRONG = 2;
 }
