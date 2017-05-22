@@ -44,7 +44,7 @@ public class Game implements Data {
 			}
 		}
 		for (int i = 0;currentItemOptions.size()<CHOICE_COUNT&&i<availableItems.size();i++) {
-			if (availableItems.get(i)!=correctItem) currentItemOptions.add(availableItems.get(i));//fill the rest of the choices with items that arent the correct item
+			if (availableItems.get(i)!=correctItem) currentItemOptions.add(availableItems.get(i));//fill the rest of the choices with items that aren't the correct item
 		}
 		
 		if (TRUE==PERSISTENT&&!found) outOfAvailableItems();//if out of available items
@@ -54,9 +54,7 @@ public class Game implements Data {
 	public static void refreshAvailableItems() {
 		availableItems.clear();
 		for (int i = 0;i<allItems.size();i++) {
-//			if (filter(allItems.get(i))) {//if the item fits the filter, add it to available
 			availableItems.add(allItems.get(i));
-//			}
 		}
 	}
 
@@ -68,21 +66,24 @@ public class Game implements Data {
 		//restart? end program? BSOD?
 	}
 	
-	public static void proccessGuess() {//TODO
+	public static void proccessGuess() {
 		if (foundCorrect()) {
 			System.out.println("+correct");
 			//change a score?
 		}
 		else {
-			for (int i = 0;i<window.getButtons().size();i++) {
-				Button button = window.getButtons().get(i);
-				if (button instanceof ChoiceButton) {
-					if (((ChoiceButton) button).getItem()==guess) ((ChoiceButton) button).setWrong(true);
-				}
-			}
 			System.out.println("-incorrect");
 			//change a score?
 		}
+//		for (int i = 0;i<window.getButtons().size();i++) {
+//			Button button = window.getButtons().get(i);
+//			if (button instanceof ChoiceButton) {
+//				ChoiceButton cButton;
+//				if (((ChoiceButton) button).getItem()==guess) {
+//					if ((ChoiceButton) button).setWrong(!foundCorrect());
+//				}
+//			}
+//		}
 	}
 	
 	public static void pick(Item item) {//pick (guess) the item
@@ -93,7 +94,7 @@ public class Game implements Data {
 	}
 	
 	public static void next() {//go to next set of choices
-		if (TRUE==REQUIRE_ANSWER&&!guessed()) {//if didnt guess
+		if (TRUE==REQUIRE_ANSWER&&!guessed()&&!currentItemOptions.isEmpty()) {//if didnt guess
 			System.out.println("didn't guess yet");
 			return;
 		}
@@ -101,7 +102,6 @@ public class Game implements Data {
 		if (guessed()&&((foundCorrect()&&PERSISTENT_ONCE_CORRECT==TRUE&&PERSISTENT==TRUE)||PERSISTENT==TRUE)) correctItem.shown();//increment the use counter on the correct item
 		guess = null;//reset guess
 		refillChoices();//refill options
-		
 		refreshButtons();
 	}
 	

@@ -21,9 +21,9 @@ public interface Data {
 	int IMAGE_X = SCREEN.getDisplayMode().getWidth()/2-IMAGE_SIZE/2;
 	int IMAGE_Y = 40;
 
-	int CHOICE_COUNT = 3;//number of multiple choice options
-	boolean AUTO_NEXT = true;
-	boolean REQUIRE_ANSWER = false;
+	int CHOICE_COUNT = 4;//number of multiple choice options
+	boolean AUTO_NEXT = false;
+	boolean REQUIRE_ANSWER = true;
 	boolean PERSISTENT = true;//show items as correct choice limited number of times
 	int MAX_SHOWINGS = 1; 
 	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct 
