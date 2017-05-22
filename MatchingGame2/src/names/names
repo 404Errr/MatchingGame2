@@ -1,7 +1,7 @@
-//name : exact image name without extension
-BLACK:black
-WHITE:white
-BLUE:blue
+//name : exact image name without extension : id : grade/graduationyear
+BLACK:black:5598
+WHITE:white:2127
+BLUE:blue:1122:2018
 GREEN:green
 CYAN:cyan
 DARK GREY:dark_grey

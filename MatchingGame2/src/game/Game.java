@@ -23,7 +23,7 @@ public class Game implements Data {
 		availableItems = new ArrayList<>();
 		currentItemOptions = new ArrayList<>();
 		for (String imageName:IMAGE_LOCATION) {
-			allItems.add(new Item(imageName, Util.getRandomGraduationYear(), Util.getRandomId()));//temporary
+			allItems.add(new Item(imageName));//temporary
 		}
 //		gradeFilter = new boolean[4];
 		window = new Window();

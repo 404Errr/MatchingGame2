@@ -36,11 +36,11 @@ public interface Data {
 	
 	List<String> IMAGE_LOCATION = new ArrayList<>();//location of every valid image
 	class IO {
-		private static List<String> ITEM_NAMES;
+		private static List<String> ITEM_CONFIG;
 
 		static {
 			try {
-				ITEM_NAMES = Files.readAllLines(Paths.get(NAMES_DIR));
+				ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -49,14 +49,10 @@ public interface Data {
 
 		public static String lookupName(String imageName) {
 			try {
-				if (ITEM_NAMES==null) ITEM_NAMES = Files.readAllLines(Paths.get(NAMES_DIR));;
-				for (String line:ITEM_NAMES) {
+				if (ITEM_CONFIG==null) ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
+				for (String line:ITEM_CONFIG) {
 					if (line.startsWith("//")) continue;//comments can be made
 					String[] split = line.split(":");
-					if (split.length!=2) {
-						System.err.println("Syntax error: "+line);
-						return "";
-					}
 					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return split[0]; 
 				}
 			}
@@ -65,7 +61,24 @@ public interface Data {
 			}
 			return "";
 		}
+		
+		public static int lookupId(String imageName) {
+			try {
+				if (ITEM_CONFIG==null) ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
+				for (String line:ITEM_CONFIG) {
+					if (line.startsWith("//")) continue;//comments can be made
+					String[] split = line.split(":");
+					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return Integer.valueOf(split[2]); 
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return -1;
+		}
 	}
+	
+	add thingy lookup grade
 	
 	static BufferedImage getImage(String fileName) {//temporary
 		try {

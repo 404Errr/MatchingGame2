@@ -9,7 +9,7 @@ public final class Util {
 	}
 	
 	public static int getRandomGraduationYear() {
-		return new GregorianCalendar().get(Calendar.YEAR)-(int) (Math.random()*4);
+		return new GregorianCalendar().get(Calendar.YEAR)+(int) (Math.random()*4);
 	}
 	
 	public static int getRandomId() {

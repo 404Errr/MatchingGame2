@@ -3,6 +3,7 @@ package game;
 import java.awt.image.BufferedImage;
 
 import data.Data;
+import util.Util;
 
 public class Item {
 	private String imagePath;//file name and directory
@@ -11,11 +12,13 @@ public class Item {
 	private int timesShown;//how many times the item has been the correct answer
 	private String name;//name of the item
 
-	public Item(String imagePath, int grade, int id) {
+	public Item(String imagePath, int grade) {
 		this.imagePath = imagePath;
-		this.grade = grade;
-		this.id = id;
-		this.name = Data.IO.lookupName(imagePath);//temporary
+		this.grade = Data.IO.lookupGrade(imagePath);
+		this.name = Data.IO.lookupName(imagePath);
+		this.id = Data.IO.lookupId(imagePath);
+		if (grade==-1) grade = Util.getRandomGraduationYear();
+		if (id==-1) id = Util.getRandomId();
 	}
 
 	public BufferedImage getImage() {//returns the image associated with the item
