@@ -14,9 +14,7 @@ public class Game implements Data {
 	private static UpdateLoop updateLoop;
 	private static List<Item> allItems, availableItems, currentItemOptions;
 	private static Item correctItem, guess;
-//	private static boolean[] gradeFilter;//TODO
-//	private static List<Integer> gradeFilter;
-
+	
 	public static void init() {
 		allItems = new ArrayList<>();
 		availableItems = new ArrayList<>();
@@ -24,7 +22,6 @@ public class Game implements Data {
 		for (String imageName:IMAGE_LOCATION) {
 			allItems.add(new Item(imageName));//temporary
 		}
-//		gradeFilter = new boolean[4];
 		window = new Window();
 		refreshAvailableItems();
 		next(true);

@@ -84,7 +84,5 @@ public class Renderer extends JPanel implements Data {
 		this.image = image;
 	}
 
-
-
 	private static boolean TRUE = true;//ignore this
 }

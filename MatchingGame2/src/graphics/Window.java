@@ -33,10 +33,23 @@ public class Window extends JFrame implements Data {
 
 	public void initButtons() {
 		buttons = new ArrayList<>();
-		buttons.add(new NextButton(10, 10, 120, 60));
-		for (int i = 0;i<CHOICE_COUNT;i++) {
-			buttons.add(new ChoiceButton(10+180*i, 80, 160, 60));
+		buttons.add(new NextButton(BUTTON_NEXT_X, BUTTON_NEXT_Y, BUTTON_NEXT_WIDTH, BUTTON_NEXT_HEIGHT));
+		here
+		if (BUTTON_CHOICE_GRID_X_COUNT*BUTTON_CHOICE_GRID_Y_COUNT<CHOICE_COUNT) System.err.println("Not enough buttons");
+		int i = 0;
+		for (int y = 0;i<CHOICE_COUNT&&y<BUTTON_CHOICE_GRID_Y_COUNT;y++) {
+			for (int x = 0;i<CHOICE_COUNT&&x<BUTTON_CHOICE_GRID_X_COUNT;x++) {
+				buttons.add(new ChoiceButton(
+						BUTTON_CHOICE_GRID_X+x*(BUTTON_CHOICE_WIDTH+BUTTON_SPACING), 
+						BUTTON_CHOICE_GRID_Y+y*(BUTTON_CHOICE_HEIGHT+BUTTON_SPACING), 
+						BUTTON_CHOICE_WIDTH, BUTTON_CHOICE_HEIGHT));
+				System.out.println(i+"\t"+buttons.get(buttons.size()-1));
+				i++;
+			}
 		}
+//		for (int i = 0;i<;i++) {
+//			buttons.add(new ChoiceButton(10+180*i, 80, 160, 60));
+//		}
 	}
 	
 	public Renderer getRenderer() {

@@ -21,13 +21,26 @@ public interface Data {
 	int IMAGE_X = SCREEN.getDisplayMode().getWidth()/2-IMAGE_SIZE/2;
 	int IMAGE_Y = 40;
 
-	int CHOICE_COUNT = 3;//number of multiple choice options
-	boolean AUTO_NEXT = true;//automatically advance to the next question when correct
-	boolean REQUIRE_ANSWER = true;
+	int CHOICE_COUNT = 10;//number of multiple choice options
+	boolean AUTO_NEXT = false;//automatically advance to the next question when correct
+	boolean REQUIRE_ANSWER = false;
 	boolean PERSISTENT = true;//show items as correct choice limited number of times
 	int MAX_SHOWINGS = 1; 
 	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct 
 	boolean SHOW_CORRECT = false;
+	
+	int BUTTON_SPACING = 10;
+	int BUTTON_NEXT_X = BUTTON_SPACING;
+	int BUTTON_NEXT_Y = BUTTON_SPACING;
+	int BUTTON_NEXT_WIDTH = 120; 
+	int BUTTON_NEXT_HEIGHT = 60;
+	int BUTTON_CHOICE_GRID_X_COUNT = 1;
+	int BUTTON_CHOICE_GRID_Y_COUNT = 100;
+	int BUTTON_CHOICE_GRID_X = BUTTON_SPACING;
+	int BUTTON_CHOICE_GRID_Y = BUTTON_NEXT_HEIGHT+(BUTTON_SPACING*2);
+	int BUTTON_CHOICE_WIDTH = 160; 
+	int BUTTON_CHOICE_HEIGHT = 60;
+	
 	
 	
 	File FOLDER = new File("src/pictures");
@@ -35,6 +48,7 @@ public interface Data {
 	String NAMES_DIR = "src/config/items";
 	
 	List<String> IMAGE_LOCATION = new ArrayList<>();//location of every valid image
+	
 	class IO {
 		private static List<String> ITEM_CONFIG;
 
