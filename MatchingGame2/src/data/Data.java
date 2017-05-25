@@ -45,7 +45,7 @@ public interface Data {
 	int BUTTON_CHOICE_HEIGHT = 60;
 	
 	int IMAGE_NAME = 0, NAME = 1, ID = 2, GRADE = 3;//config file content order
-	File IMAGE_FOLDER = new File("src/pictures");//image file directory
+	File IMAGE_FOLDER = new File("src/pictures");//directory of images
 	String[] EXTENSIONS = new String[] {".png", ".jpg"};//recognized image extenstion types
 	String CONFIG_DIR = "src/config/items";//directory of config file
 	
