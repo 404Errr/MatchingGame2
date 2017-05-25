@@ -21,15 +21,15 @@ public class Cursor {
 		}
 	}
 
-	public void updateMouse(MouseEvent e) {
+	public void updateMouse(MouseEvent e) {//set position of mouse
 		e = SwingUtilities.convertMouseEvent(Game.getWindow(), e, Game.getWindow().getRenderer());
-		x = e.getX();//set position
+		x = e.getX();
 		y = e.getY();
-		
-		for (Button button:Game.getWindow().getButtons()) {
-			if (button.contains(this)) button.setHovered(true);
-			else button.setHovered(false);
-		}
+//		
+//		for (Button button:Game.getWindow().getButtons()) {
+//			if (button.contains(this)) button.setHovered(true);
+//			else button.setHovered(false);
+//		}
 	}
 
 	public int getX() {

@@ -1,12 +1,11 @@
-//name : exact image name without extension : id : grade/graduation year
-BLACK:black:5598:2017
-WHITE:white:2127:2018
-BLUE:blue:1122:2018
-GREEN:green:4534:2020
-CYAN:cyan:45643:2017
-DARK GREY:dark_grey:55222:2019
-LIGHT GREY:light_grey:4325:2017
-ORANGE:orange:8574:2018
-PURPLE:purple:8575:2017
-RED:red:33353:2020
-YELLOW:yellow:1215:2019
+black:BLACK:5598:2017
+white:WHITE:2127:2018
+blue:BLUE:1122:2018
+green:GREEN:4534:2020
+cyan:CYAN:45643:2017
+dark_grey:DARK GREY:55222:2019
+light_grey:LIGHT GREY:4325:2017
+orange:ORANGE:8574:2018
+purple:PURPLE:8575:2017
+red:RED:33353:2020
+yellow:YELLOW:1215:2019

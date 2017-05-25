@@ -16,7 +16,7 @@ import input.buttons.NextButton;
 
 @SuppressWarnings("serial")
 public class Renderer extends JPanel implements Data {
-	private BufferedImage image;
+	private BufferedImage image;//current image to display
 	
 	@Override
 	public void paint(Graphics g0) {
@@ -27,13 +27,13 @@ public class Renderer extends JPanel implements Data {
 		drawButtons(g);
 	}
 
-	private void drawButtons(Graphics2D g) {//TEMPORARY
+	private void drawButtons(Graphics2D g) {
 		for (Button button:Game.getWindow().getButtons()) {
 			if (button instanceof ChoiceButton) {
-				int rW = ((ChoiceButton) button).getRightWrong();
+				int rightWrong = ((ChoiceButton) button).getRightWrong();
 				if (SHOW_CORRECT==TRUE&&((ChoiceButton) button).getItem()==Game.getCorrectItem()) g.setColor(Color.CYAN);
-				if (rW==WRONG) g.setColor(Color.RED);
-				if (rW==RIGHT) g.setColor(Color.GREEN);
+				if (rightWrong==WRONG) g.setColor(Color.RED);
+				if (rightWrong==RIGHT) g.setColor(Color.GREEN);
 			}
 			g.drawRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
 			g.setColor(Color.BLACK);
@@ -76,7 +76,7 @@ public class Renderer extends JPanel implements Data {
 //		}
 //	}
 //
-	private void drawImage(Graphics2D g, BufferedImage image) {
+	private void drawImage(Graphics2D g, BufferedImage image) {//draws image
 		g.drawImage(image, IMAGE_X, IMAGE_Y, IMAGE_SIZE, IMAGE_SIZE*(image.getHeight()/image.getWidth()), null);
 	}
 	

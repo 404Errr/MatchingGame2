@@ -34,16 +34,16 @@ public class Window extends JFrame implements Data {
 	public void initButtons() {
 		buttons = new ArrayList<>();
 		buttons.add(new NextButton(BUTTON_NEXT_X, BUTTON_NEXT_Y, BUTTON_NEXT_WIDTH, BUTTON_NEXT_HEIGHT));
-		here
-		if (BUTTON_CHOICE_GRID_X_COUNT*BUTTON_CHOICE_GRID_Y_COUNT<CHOICE_COUNT) System.err.println("Not enough buttons");
+		if (BUTTON_CHOICE_GRID_X_COUNT*BUTTON_CHOICE_GRID_Y_COUNT<CHOICE_COUNT==TRUE) System.err.println("Not enough buttons");
 		int i = 0;
 		for (int y = 0;i<CHOICE_COUNT&&y<BUTTON_CHOICE_GRID_Y_COUNT;y++) {
 			for (int x = 0;i<CHOICE_COUNT&&x<BUTTON_CHOICE_GRID_X_COUNT;x++) {
 				buttons.add(new ChoiceButton(
-						BUTTON_CHOICE_GRID_X+x*(BUTTON_CHOICE_WIDTH+BUTTON_SPACING), 
-						BUTTON_CHOICE_GRID_Y+y*(BUTTON_CHOICE_HEIGHT+BUTTON_SPACING), 
-						BUTTON_CHOICE_WIDTH, BUTTON_CHOICE_HEIGHT));
-				System.out.println(i+"\t"+buttons.get(buttons.size()-1));
+					BUTTON_CHOICE_GRID_X+x*(BUTTON_CHOICE_WIDTH+BUTTON_SPACING), 
+					BUTTON_CHOICE_GRID_Y+y*(BUTTON_CHOICE_HEIGHT+BUTTON_SPACING), 
+					BUTTON_CHOICE_WIDTH,
+					BUTTON_CHOICE_HEIGHT
+				));
 				i++;
 			}
 		}
@@ -64,5 +64,5 @@ public class Window extends JFrame implements Data {
 		return input;
 	}
 	
-	
+	private static boolean TRUE = true;//ignore this
 }

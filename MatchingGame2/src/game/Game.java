@@ -15,7 +15,7 @@ public class Game implements Data {
 	private static List<Item> allItems, availableItems, currentItemOptions;
 	private static Item correctItem, guess;
 	
-	public static void init() {
+	public static void run() {
 		allItems = new ArrayList<>();
 		availableItems = new ArrayList<>();
 		currentItemOptions = new ArrayList<>();
@@ -34,16 +34,15 @@ public class Game implements Data {
 		currentItemOptions.clear();//empty options
 		boolean found = false;
 		for (int i = 0;!found&&i<availableItems.size();i++) {//if it hasnt found a valid correct item yet
-			if (PERSISTENT!=TRUE||availableItems.get(i).getTimesShown()<MAX_SHOWINGS) {//if not persistent (pick 0) else pick only if hasnt been shown
+			if (PERSISTENT!=TRUE||availableItems.get(i).getTimesShown()<MAX_SHOWINGS) {//if not persistent (pick 0) else pick only if hasnt been shown MAX_SHOWINGS-1 times
 				setCorrectItem(availableItems.get(i));
 				currentItemOptions.add(correctItem);
-				found = true;
+				found = true;//found a valid correct item
 			}
 		}
 		for (int i = 0;currentItemOptions.size()<CHOICE_COUNT&&i<availableItems.size();i++) {
 			if (availableItems.get(i)!=correctItem) currentItemOptions.add(availableItems.get(i));//fill the rest of the choices with items that aren't the correct item
 		}
-		
 		if (TRUE==PERSISTENT&&!found) outOfAvailableItems();//if out of available items
 		Collections.shuffle(currentItemOptions);//shuffle choices
 	}
@@ -61,12 +60,17 @@ public class Game implements Data {
 		}
 	}
 
-	public static void outOfAvailableItems() {//TODO
+	public static void outOfAvailableItems() {
+		if (RESET_PERSITENCE_WHEN_OUT_OF_ITEMS==TRUE) {
+			resetPersistence();
+			next(true);
+			return;
+		}
 		currentItemOptions = new ArrayList<>();
 		setCorrectItem(null);
 		window.initButtons();
 		System.out.println("no more available items");
-		//restart? end program? BSOD?
+		//restart? end program? BSOD? TODO
 	}
 	
 	public static void proccessGuess() {
@@ -92,7 +96,8 @@ public class Game implements Data {
 	
 	public static void pick(Item item) {//pick (guess) the item
 		System.out.println("picked "+item);
-		/*if (!foundCorrect()) */guess = item;
+		if (!foundCorrect()&&ALLOW_GUESS_AFTER_CORRECT!=TRUE) guess = item;
+		else System.out.println("already guessed");
 		proccessGuess();
 		if (foundCorrect()&&AUTO_NEXT==TRUE) next(false);
 	}
@@ -102,7 +107,6 @@ public class Game implements Data {
 			System.out.println("didn't guess yet");
 			return;
 		}
-		if (correctItem!=null) System.out.println("next");
 		if (guessed()&&((foundCorrect()&&PERSISTENT_ONCE_CORRECT==TRUE&&PERSISTENT==TRUE)||PERSISTENT==TRUE)) correctItem.shown();//increment the use counter on the correct item
 		guess = null;//reset guess
 		refillChoices();//refill options
@@ -122,11 +126,6 @@ public class Game implements Data {
 		}
 	}
 	
-//	private static boolean filter(Item item) {
-//		if (!gradeFilter.length&&!gradeFilter.contains(item.getGrade())) return false;
-//		return true;
-//	}
-
 	public static boolean guessed() {
 		return guess!=null;
 	}

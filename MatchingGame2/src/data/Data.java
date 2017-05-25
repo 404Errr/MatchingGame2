@@ -8,6 +8,7 @@ import java.io.FilenameFilter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -21,109 +22,98 @@ public interface Data {
 	int IMAGE_X = SCREEN.getDisplayMode().getWidth()/2-IMAGE_SIZE/2;
 	int IMAGE_Y = 40;
 
-	int CHOICE_COUNT = 10;//number of multiple choice options
+	int CHOICE_COUNT = 3;//number of multiple choice options
+	boolean SHOW_CORRECT = true;//highlight the correct choice
 	boolean AUTO_NEXT = false;//automatically advance to the next question when correct
-	boolean REQUIRE_ANSWER = false;
-	boolean PERSISTENT = true;//show items as correct choice limited number of times
-	int MAX_SHOWINGS = 1; 
-	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct 
-	boolean SHOW_CORRECT = false;
+	boolean ALLOW_GUESS_AFTER_CORRECT = false;//allow user to guess after they found the correct answer
+	boolean REQUIRE_ANSWER = true;//only allow the next button to work if user has made guess
+	int MAX_SHOWINGS = 1;//maximum times an item can be the correct choice (only if PERSISTENT is true)
+	boolean PERSISTENT = true;//show items as correct choice MAX_SHOWINGS times
+	boolean RESET_PERSITENCE_WHEN_OUT_OF_ITEMS = true;//if false, program will end when all items have been shown MAX_SHOWINGS times
+	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct
 	
-	int BUTTON_SPACING = 10;
+	int BUTTON_SPACING = 10;//space between buttons
 	int BUTTON_NEXT_X = BUTTON_SPACING;
 	int BUTTON_NEXT_Y = BUTTON_SPACING;
 	int BUTTON_NEXT_WIDTH = 120; 
 	int BUTTON_NEXT_HEIGHT = 60;
-	int BUTTON_CHOICE_GRID_X_COUNT = 1;
-	int BUTTON_CHOICE_GRID_Y_COUNT = 100;
+	int BUTTON_CHOICE_GRID_X_COUNT = 3;
+	int BUTTON_CHOICE_GRID_Y_COUNT = 1;
 	int BUTTON_CHOICE_GRID_X = BUTTON_SPACING;
 	int BUTTON_CHOICE_GRID_Y = BUTTON_NEXT_HEIGHT+(BUTTON_SPACING*2);
-	int BUTTON_CHOICE_WIDTH = 160; 
+	int BUTTON_CHOICE_WIDTH = 140; 
 	int BUTTON_CHOICE_HEIGHT = 60;
 	
-	
-	
-	File FOLDER = new File("src/pictures");
-	String[] EXTENSIONS = new String[] {".png", ".jpg"};
-	String NAMES_DIR = "src/config/items";
+	int IMAGE_NAME = 0, NAME = 1, ID = 2, GRADE = 3;//config file content order
+	File IMAGE_FOLDER = new File("src/pictures");//image file directory
+	String[] EXTENSIONS = new String[] {".png", ".jpg"};//recognized image extenstion types
+	String CONFIG_DIR = "src/config/items";//directory of config file
 	
 	List<String> IMAGE_LOCATION = new ArrayList<>();//location of every valid image
 	
 	class IO {
-		private static List<String> ITEM_CONFIG;
+		private static List<String[]> itemConfig;
 
 		static {
 			try {
-				ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
+				List<String> tempItemConfig = Files.readAllLines(Paths.get(CONFIG_DIR));
+				itemConfig = new ArrayList<>();
+				for (int i = 0;i<tempItemConfig.size();i++) {
+					if (tempItemConfig.get(i).startsWith("//")) continue;
+					String[] line = tempItemConfig.get(i).split(":");
+					itemConfig.add(line);
+				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-
-		public static String lookupName(String imageName) {
+		
+		public static String lookup(String imageName, int type) {
 			try {
-				if (ITEM_CONFIG==null) ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
-				for (String line:ITEM_CONFIG) {
-					if (line.startsWith("//")) continue;//comments can be made
-					String[] split = line.split(":");
-					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return split[0]; 
+				for (String[] line:itemConfig) {
+					if (imageName.substring(0, imageName.indexOf(".")).equals(line[IMAGE_NAME])) return line[type]; 
 				}
 			}
 			catch (Exception e) {}
 			return "";
 		}
 		
+		public static String lookupName(String imageName) {
+			return lookup(imageName, NAME);
+		}
+		
 		public static int lookupId(String imageName) {
-			try {
-				if (ITEM_CONFIG==null) ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
-				for (String line:ITEM_CONFIG) {
-					if (line.startsWith("//")) continue;//comments can be made
-					String[] split = line.split(":");
-					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return Integer.valueOf(split[2]); 
-				}
-			}
-			catch (Exception e) {}
-			return -1;
+			return Integer.parseInt(lookup(imageName, ID));
 		}
 		
 		public static int lookupGrade(String imageName) {
+			return Integer.valueOf(lookup(imageName, GRADE));
+		}
+
+		public static BufferedImage getImage(String fileName) {
+			String path = IMAGE_FOLDER+"/"+fileName;
 			try {
-				if (ITEM_CONFIG==null) ITEM_CONFIG = Files.readAllLines(Paths.get(NAMES_DIR));
-				for (String line:ITEM_CONFIG) {
-					if (line.startsWith("//")) continue;//comments can be made
-					String[] split = line.split(":");
-					if (imageName.substring(0, imageName.indexOf(".")).equals(split[1])) return Integer.valueOf(split[3]); 
-				}
+				return ImageIO.read(new File(path));
 			}
-			catch (Exception e) {}
-			return -1;
+			catch (Exception e) {
+				System.err.println("couldnt load image at :\t"+path);
+			}
+			return null;
 		}
 	}
 	
-	static BufferedImage getImage(String fileName) {//temporary
-		try {
-			return ImageIO.read(new File(FOLDER+"/"+fileName));//temporary
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	static void loadImages() {//load image paths
 		FilenameFilter imageFilter = new FilenameFilter() {
 			@Override
-			public boolean accept(File f, String name) {//check if file is a type of picture
+			public boolean accept(File file, String name) {//check if file is a type of picture (has one of EXT)
 				for (String ext:EXTENSIONS) if (name.endsWith(ext)) return true;
 				return false;
 			}
 		};
-		if (FOLDER.isDirectory()) {
-			for (File picture:FOLDER.listFiles(imageFilter)) {//load each of the pictures paths
+		if (IMAGE_FOLDER.isDirectory()) {
+			for (File picture:IMAGE_FOLDER.listFiles(imageFilter)) {//load each of the pictures paths
 				IMAGE_LOCATION.add(picture.getName());
-//				IMAGES.add(picture);
-//				System.out.println("loaded "+picture.getName());
 			}
 		}
 	}
