@@ -41,9 +41,13 @@ public class Game implements Data {
 			}
 		}
 		for (int i = 0;currentItemOptions.size()<CHOICE_COUNT&&i<availableItems.size();i++) {
-			if (availableItems.get(i)!=correctItem) currentItemOptions.add(availableItems.get(i));//fill the rest of the choices with items that aren't the correct item
+			if (availableItems.get(i)!=correctItem) {
+				currentItemOptions.add(availableItems.get(i));//fill the rest of the choices with items that aren't the correct item
+			}
 		}
-		if (TRUE==PERSISTENT&&!found) outOfAvailableItems();//if out of available items
+		if (TRUE==PERSISTENT&&!found) {
+			outOfAvailableItems();//if out of available items
+		}
 		Collections.shuffle(currentItemOptions);//shuffle choices
 	}
 
@@ -87,8 +91,12 @@ public class Game implements Data {
 			if (button instanceof ChoiceButton) {
 				ChoiceButton cButton = ((ChoiceButton) button);
 				if (cButton.getItem()==guess) {
-					if (foundCorrect()) cButton.setRightWrong(RIGHT); 
-					else cButton.setRightWrong(WRONG);
+					if (foundCorrect()) {cButton.setRightWrong(RIGHT); 
+					
+					}
+					else {cButton.setRightWrong(WRONG);
+					
+					}
 				}
 			}
 		}
@@ -96,7 +104,9 @@ public class Game implements Data {
 	
 	public static void pick(Item item) {//pick (guess) the item
 		System.out.println("picked "+item);
-		if (!foundCorrect()&&ALLOW_GUESS_AFTER_CORRECT!=TRUE) guess = item;
+		if (!foundCorrect()&&ALLOW_GUESS_AFTER_CORRECT!=TRUE) {
+			guess = item;
+		}
 		else System.out.println("already guessed");
 		proccessGuess();
 		if (foundCorrect()&&AUTO_NEXT==TRUE) next(false);
@@ -107,7 +117,9 @@ public class Game implements Data {
 			System.out.println("didn't guess yet");
 			return;
 		}
-		if (guessed()&&((foundCorrect()&&PERSISTENT_ONCE_CORRECT==TRUE&&PERSISTENT==TRUE)||PERSISTENT==TRUE)) correctItem.shown();//increment the use counter on the correct item
+		if (guessed()&&((foundCorrect()&&PERSISTENT_ONCE_CORRECT==TRUE&&PERSISTENT==TRUE)||PERSISTENT==TRUE)) {
+			correctItem.shown();//increment the use counter on the correct item
+		}
 		guess = null;//reset guess
 		refillChoices();//refill options
 		refreshButtons();
@@ -118,7 +130,9 @@ public class Game implements Data {
 		for (Button choiceButton:Game.getWindow().getButtons()) {
 			if (choiceButton instanceof ChoiceButton) {
 				Item item = null;
-				if (!currentItemOptions.isEmpty()) item = currentItemOptions.get(i);
+				if (!currentItemOptions.isEmpty()) {
+					item = currentItemOptions.get(i);
+				}
 				((ChoiceButton) choiceButton).setItem(item);//set the items of the choice buttons
 				((ChoiceButton) choiceButton).setRightWrong(NONE);
 				i++;

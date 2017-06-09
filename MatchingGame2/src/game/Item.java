@@ -18,7 +18,7 @@ public class Item {
 		this.id = Data.IO.lookupId(imagePath);
 	}
 
-	public BufferedImage getImage() {//returns the image associated with this	 item
+	public BufferedImage getImage() {//returns the image associated with this item
 		return Data.IO.getImage(imagePath);
 	}
 

@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -22,8 +23,11 @@ public class Renderer extends JPanel implements Data {
 	public void paint(Graphics g0) {
 		Graphics2D g = (Graphics2D) g0;
 		super.paintComponent(g);
+		g.setStroke(new BasicStroke(3));
 		g.setFont(new Font("Helvetica", Font.BOLD, 20));
-		if (image!=null) drawImage(g, image/*Game.getCorrectItem().getImage()*/);
+		if (image!=null) {
+			drawImage(g, image/*Game.getCorrectItem().getImage()*/);
+		}
 		drawButtons(g);
 	}
 
@@ -31,9 +35,15 @@ public class Renderer extends JPanel implements Data {
 		for (Button button:Game.getWindow().getButtons()) {
 			if (button instanceof ChoiceButton) {
 				int rightWrong = ((ChoiceButton) button).getRightWrong();
-				if (SHOW_CORRECT==TRUE&&((ChoiceButton) button).getItem()==Game.getCorrectItem()) g.setColor(Color.CYAN);
-				if (rightWrong==WRONG) g.setColor(Color.RED);
-				if (rightWrong==RIGHT) g.setColor(Color.GREEN);
+				if (SHOW_CORRECT==TRUE&&((ChoiceButton) button).getItem()==Game.getCorrectItem()) {
+					g.setColor(Color.CYAN);
+				}
+				if (rightWrong==WRONG) {
+					g.setColor(Color.RED);
+				}
+				if (rightWrong==RIGHT) {
+					g.setColor(Color.GREEN);
+				}
 			}
 			g.drawRect(button.getX(), button.getY(), button.getWidth(), button.getHeight());
 			g.setColor(Color.BLACK);

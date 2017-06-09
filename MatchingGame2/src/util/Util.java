@@ -14,7 +14,9 @@ public final class Util {
 	
 	public static int getRandomId() {
 		int digits = 4, number = 0;
-		if ((int) (Math.random()*5)==0) digits++;
+		if ((int) (Math.random()*5)==0) {
+			digits++;
+		}
 		for (int i = 0;i<digits;i++) {
 			number = number*10+(int) (Math.random()*10);
 		}

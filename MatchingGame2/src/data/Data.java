@@ -8,7 +8,6 @@ import java.io.FilenameFilter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -23,19 +22,19 @@ public interface Data {
 	int IMAGE_Y = 40;
 
 	int CHOICE_COUNT = 3;//number of multiple choice options
-	boolean SHOW_CORRECT = true;//highlight the correct choice
-	boolean AUTO_NEXT = false;//automatically advance to the next question when correct
+	boolean SHOW_CORRECT = false;//highlight the correct choice
+	boolean AUTO_NEXT = false;//automatically advance to the next question when user gets it correct
 	boolean ALLOW_GUESS_AFTER_CORRECT = false;//allow user to guess after they found the correct answer
-	boolean REQUIRE_ANSWER = true;//only allow the next button to work if user has made guess
-	int MAX_SHOWINGS = 1;//maximum times an item can be the correct choice (only if PERSISTENT is true)
+	boolean REQUIRE_ANSWER = true;//only allow the next button to work if user has made a guess
 	boolean PERSISTENT = true;//show items as correct choice MAX_SHOWINGS times
-	boolean RESET_PERSITENCE_WHEN_OUT_OF_ITEMS = true;//if false, program will end when all items have been shown MAX_SHOWINGS times
+	int MAX_SHOWINGS = 1;//maximum times an item can be the correct choice (only if PERSISTENT is true)
 	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct
+	boolean RESET_PERSITENCE_WHEN_OUT_OF_ITEMS = true;//if false, program will end when all items have been shown MAX_SHOWINGS times
 	
 	int BUTTON_SPACING = 10;//space between buttons
 	int BUTTON_NEXT_X = BUTTON_SPACING;
 	int BUTTON_NEXT_Y = BUTTON_SPACING;
-	int BUTTON_NEXT_WIDTH = 120; 
+	int BUTTON_NEXT_WIDTH = 120;//size of the next buttons
 	int BUTTON_NEXT_HEIGHT = 60;
 	int BUTTON_CHOICE_GRID_X_COUNT = 3;
 	int BUTTON_CHOICE_GRID_Y_COUNT = 1;
