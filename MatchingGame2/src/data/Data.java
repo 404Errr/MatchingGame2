@@ -13,11 +13,11 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public interface Data {
-	int UPS = 30;
+	int UPS = 20;
 
 	GraphicsDevice SCREEN = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 	
-	int IMAGE_SIZE = 400;//width
+	int IMAGE_SIZE = 400;//width of image
 	int IMAGE_X = SCREEN.getDisplayMode().getWidth()/2-IMAGE_SIZE/2;
 	int IMAGE_Y = 40;
 
@@ -31,7 +31,7 @@ public interface Data {
 	boolean PERSISTENT_ONCE_CORRECT = true;//only stop showing an item when the user gets it correct
 	boolean RESET_PERSITENCE_WHEN_OUT_OF_ITEMS = true;//if false, program will end when all items have been shown MAX_SHOWINGS times
 	
-	int BUTTON_SPACING = 10;//space between buttons
+	int BUTTON_SPACING = 15;//space between buttons
 	int BUTTON_NEXT_X = BUTTON_SPACING;
 	int BUTTON_NEXT_Y = BUTTON_SPACING;
 	int BUTTON_NEXT_WIDTH = 120;//size of the next buttons
